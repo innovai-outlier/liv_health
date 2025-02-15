@@ -1,0 +1,29 @@
+{
+    "agendar": [
+        "marcar",
+        "reservar",
+        "confirmar",
+        "fazer um agendamento"
+    ],
+    "consulta": [
+        "atendimento",
+        "exame médico",
+        "avaliação",
+        "consulta"
+    ],
+    "interesse": [
+        "curiosidade",
+        "desejo",
+        "vontade"
+    ],
+    "preço": [
+        "custo",
+        "valor",
+        "investimento"
+    ],
+    "desconto": [
+        "promoção",
+        "redução",
+        "oferta especial"
+    ]
+}
