@@ -41,3 +41,14 @@ O framework organiza os agentes em uma hierarquia:
    python main.py --tipo dinamica
    # ou para auditoria estática:
    python main.py --tipo estatica
+  
+## 🧪 Testes Unitários
+
+Para garantir que o framework funcione corretamente e detectar possíveis alterações na estrutura da página (por exemplo, se os seletores do WhatsApp Web mudarem), criamos uma suíte de testes unitários.
+
+### Como Executar os Testes
+
+1. Certifique-se de ter todas as dependências instaladas (veja `requirements.txt`).
+2. Na raiz do projeto, execute o seguinte comando:
+   ```bash
+   python -m unittest discover -s tests
