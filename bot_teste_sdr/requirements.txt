@@ -1,0 +1,9 @@
+selenium
+webdriver-manager
+transformers
+torch
+nltk
+fuzzywuzzy
+pandas
+matplotlib
+language-tool-python
