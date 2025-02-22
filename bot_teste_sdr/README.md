@@ -7,7 +7,7 @@ Este projeto é um framework modular e open source para **auditar** o desempenho
 ## Funcionalidades
 
 1. **Configuração e Sumarização de Prompt**  
-   - Em `papis_config.py`, carregamos a lista de **blocos** de prompt do assistente a partir de um arquivo JSON (por padrão, `assets/assistant_prompt.json`).  
+   - Em `papeis_config.py`, carregamos a lista de **blocos** de prompt do assistente a partir de um arquivo JSON (por padrão, `assets/assistente_prompt.json`).  
    - Esse arquivo contém vários **chunks** autocontidos que, juntos, formam o texto completo de instruções e diretrizes para a assistente.  
    - Cada chunk evita exceder ~1024 tokens e mantém um contexto coeso (não há cortes de parágrafos no meio).  
    - O framework decide, em `agentes.py`, **como** e **quando** concatenar ou aplicar cada chunk na geração de mensagens.
