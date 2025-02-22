@@ -1,19 +1,22 @@
-# selenium_bot.py
+# src/interface/selenium_bot.py
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 def iniciar_selenium(url="https://web.whatsapp.com/"):
-    options = webdriver.ChromeOptions()
+    options = Options()
     options.add_argument("--user-data-dir=./chrome-data")
-    # Ativa o modo headless para testes automatizados (opcional para testes)
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
     if "dummy" in url:
         options.add_argument("--headless")
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    service = Service("C://Users//dmene//OneDrive//INNOVAI//Projetos//LivHealth//ASSISTENTE_VIRTUAL//liv_health//bot_teste_sdr//chromedriver.exe")
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
-    # Se estiver usando a URL padrão do WhatsApp, aguarda o QR Code
     if url == "https://web.whatsapp.com/":
         input("Escaneie o QR Code e pressione ENTER para continuar...")
     return driver

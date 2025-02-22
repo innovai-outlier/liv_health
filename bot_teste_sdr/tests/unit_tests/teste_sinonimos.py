@@ -1,6 +1,7 @@
+# unit_tests/test_sinonimos.py
 import unittest
-from sinonimos import encontrar_sinonimos, expandir_sinonimos
-from configuracoes import DICIONARIO_SINONIMOS
+from src.analysis.sinonimos import encontrar_sinonimos, expandir_sinonimos
+from src.config.configuracoes import DICIONARIO_SINONIMOS
 
 class TestSinonimos(unittest.TestCase):
     def test_encontrar_sinonimos(self):

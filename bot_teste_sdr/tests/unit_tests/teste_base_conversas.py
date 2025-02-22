@@ -1,14 +1,13 @@
+# unit_tests/test_base_conversas.py
 import unittest
 import os
 import json
-from base_conversas import adicionar_conversa, carregar_conversas, buscar_conversa_similar
+from src.storage.base_conversas import adicionar_conversa, carregar_conversas, buscar_conversa_similar
 
 class TestBaseConversas(unittest.TestCase):
     def setUp(self):
-        # Cria um arquivo temporário para testes
         self.test_file = "test_conversas.json"
         self.original_file = "conversas.json"
-        # Faz backup do arquivo original, se existir
         if os.path.exists(self.original_file):
             os.rename(self.original_file, self.test_file)
         with open(self.original_file, "w", encoding="utf-8") as f:

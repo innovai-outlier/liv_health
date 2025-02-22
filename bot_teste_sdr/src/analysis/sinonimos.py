@@ -1,9 +1,8 @@
 # sinonimos.py
-import json
 import nltk
 from nltk.corpus import wordnet
 from fuzzywuzzy import fuzz
-from configuracoes import DICIONARIO_SINONIMOS, salvar_base_sinonimos
+from src.config.configuracoes import DICIONARIO_SINONIMOS, salvar_base_sinonimos
 
 nltk.download("wordnet")
 

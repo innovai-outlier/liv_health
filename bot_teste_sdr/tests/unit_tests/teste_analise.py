@@ -1,24 +1,23 @@
+# unit_tests/test_analise.py
 import unittest
-from analise import (avaliar_aptidao_funil, avaliar_temperatura_lead, avaliar_conversao,
+from src.analysis.analise import (avaliar_aptidao_funil, avaliar_temperatura_lead, avaliar_conversao,
                      avaliar_respostas_genericas, avaliar_grau_robotizacao,
                      avaliar_compreensao_semantica, avaliar_adequacao_gramatical,
                      avaliar_respeito_encaminhamento, avaliar_conhecimento_servicos)
 
 class TestAnaliseFunctions(unittest.TestCase):
     def setUp(self):
-        # Exemplo de conversa com alta intenção de agendamento (lead "quente")
         self.conversa_alta = (
             "Agente: Quero agendar uma consulta imediatamente.\n"
             "SDR: Claro, vamos agendar. Por favor, informe seu horário preferido.\n"
             "Agente: Prefiro amanhã de manhã.\n"
             "SDR: Agendamento confirmado para amanhã às 9h."
         )
-        # Exemplo de conversa com pouca intenção (lead "frio")
         self.conversa_baixa = (
             "Agente: Estou apenas pesquisando opções.\n"
             "SDR: Posso ajudar, me fale mais sobre o que procura.\n"
             "Agente: Vou pensar.\n"
-            "SDR: Entendi, se precisar de algo, estamos à disposição."
+            "SDR: Entendi, se precisar, estamos à disposição."
         )
     
     def test_aptidao_funil(self):

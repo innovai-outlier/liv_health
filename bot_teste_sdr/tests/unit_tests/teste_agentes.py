@@ -1,5 +1,6 @@
+# unit_tests/test_agentes.py
 import unittest
-from agentes import Agent, Lead, Assistente
+from src.agents.agentes import Agent, Lead, Assistente
 
 class TestAgents(unittest.TestCase):
     def test_agent_message_storage(self):
