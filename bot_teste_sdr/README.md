@@ -41,51 +41,6 @@ Este projeto é um framework modular e open source para **auditar** o desempenho
 
 ---
 
-## Formas de Execução
-
-- **Execução dos Scripts em `main/`:**
-  - `python src/main/main.py`  
-    Executa uma simulação básica sem LangChain, criando instâncias de Lead e Assistente e exibindo o histórico de conversas.
-  - `python src/main/main_langchain.py`  
-    Integra o uso do LangChain para gerenciar a memória de conversa e resumir interações, útil para contextos com longas conversas.
-
-- **Geração de Relatório Diário:**
-  - Crie um script (por exemplo, `real_daily_report.py`) que utiliza um fetcher (como `SeleniumConversationsFetcher` ou um fetcher local) para coletar conversas de `assets/chatbase` e gerar o relatório:
-    ```python
-    from src/reports.daily_report import DailyReport
-    from src/reports.fetcher_selenium import SeleniumConversationsFetcher
-
-    fetcher = SeleniumConversationsFetcher(driver_path="path/to/chromedriver", url="https://web.whatsapp.com/")
-    report = DailyReport(fetcher=fetcher, model_store="src/reports/model_store.json")
-    resultado = report.generate_report()
-    print(resultado)
-    ```
-  - **Treino de Embeddings:**  
-    Execute o script `train_model.py` (se disponível) para gerar o dataset a partir de `assets/chatbase`, treinar o classificador multi-classe e salvar o modelo em `model_store.json`:
-    ```bash
-    python src/reports/train_model.py
-    ```
-
-- **Execução de Testes:**
-  - **Testes Unitários:**  
-    ```bash
-    python -m unittest discover -s tests/unit_tests
-    ```
-  - **Testes de Integração:**  
-    ```bash
-    python -m unittest discover -s tests/integration_tests
-    ```
-  - **Testes dos Módulos em `reports/`:**  
-    ```bash
-    python -m unittest discover -s tests/reports
-    ```
-  - **Testes Reais (Dados Locais) em `tests/reports/real_tests`:**  
-    ```bash
-    python -m unittest discover -s tests/reports/real_tests
-    ```
-
----
-
 ## Como o Prompt do Assistente Foi Preparado
 
 Para evitar um único arquivo de texto muito grande e sujeito a cortes no meio de contextos importantes, o prompt da assistente foi **fragmentado** em blocos **autocontidos** (chunks). Cada chunk:
@@ -253,8 +208,6 @@ Esses arquivos e pastas fornecem o insumo necessário para o treinamento do clas
 ---
 
 ## Uso
-
-### Execução Básica (Sem LangChain)
 
 ### Execução dos Scripts em `main/`
 
