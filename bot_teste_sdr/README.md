@@ -191,13 +191,13 @@ Essa abordagem mantém o prompt **organizado**, **estruturado** e **pronto** par
 2. **Temperatura do lead**  
    Determina a "temperatura" do lead, atribuindo uma pontuação (ex.: 10 para alta temperatura, 5 para média, 2 para baixa).
 
-3. **Conversao**  
+3. **Conversão**  
    Verifica se a conversa indica conversão (interesse em agendamento efetivado).
 
-4. **Respostas genericas**  
+4. **Respostas genéricas**  
    Calcula a porcentagem de respostas genéricas na interação, sugerindo falta de personalização.
 
-5. **Grau de robotizacao**  
+5. **Grau de robotização**  
    Quantifica o nível de automatismo (robotização) das respostas, indicando se há muita repetição ou rigidez no diálogo.
 
 6. **Compreensão semântica**  
