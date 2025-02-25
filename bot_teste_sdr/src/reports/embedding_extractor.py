@@ -63,7 +63,8 @@ class EmbeddingExtractor:
             return
         data = {
             "coef_": self.classifier.coef_.tolist(),
-            "intercept_": self.classifier.intercept_.tolist()
+            "intercept_": self.classifier.intercept_.tolist(),
+            "classes_": self.classifier.classes_.tolist()
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f)
@@ -76,6 +77,7 @@ class EmbeddingExtractor:
         self.classifier = LogisticRegression(multi_class='multinomial', solver='lbfgs')
         self.classifier.coef_ = np.array(data["coef_"])
         self.classifier.intercept_ = np.array(data["intercept_"])
+        self.classifier.classes_ = np.array(data["classes_"])
         self.classifier.n_features_in_ = len(self.classifier.coef_[0])
 
     def predict_label(self, text):

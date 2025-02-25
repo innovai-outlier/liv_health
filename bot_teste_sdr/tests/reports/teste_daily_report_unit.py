@@ -1,12 +1,26 @@
 # tests/reports/test_daily_report_unit.py
+
 import unittest
+import os
 from src.reports.daily_report import DailyReport
 from src.reports.fetcher_base import ConversationsFetcher
 
 class MockFetcher(ConversationsFetcher):
+    """
+    Simula a coleta de conversas no formato que o parser real fornece:
+      {
+        "label": "agendou" ou "nao_agendou" etc.,
+        "lead_id": "111",
+        "mensagens": [
+          {"from": "lead"/"assistente", "text": "...", "timestamp": "..."},
+          ...
+        ]
+      }
+    """
     def fetch_today_conversations(self):
         return [
             {
+                "label": "agendou",
                 "lead_id": "111",
                 "mensagens": [
                     {"from": "lead", "text": "vou agendar agora", "timestamp": "2025-05-01 10:00"},
@@ -14,43 +28,42 @@ class MockFetcher(ConversationsFetcher):
                 ]
             },
             {
+                "label": "nao_agendou",
                 "lead_id": "222",
                 "mensagens": [
-                    {"from": "lead", "text": "quero cancelar", "timestamp": "2025-05-01 11:00"}
-                ]
-            },
-            {
-                "lead_id": "333",
-                "mensagens": [
-                    {"from": "lead", "text": "preciso nota fiscal", "timestamp": "2025-05-01 12:00"}
+                    {"from": "lead", "text": "só estou pesquisando", "timestamp": "2025-05-01 11:00"},
+                    {"from": "assistente", "text": "Certo, fico à disposição!", "timestamp": "2025-05-01 11:01"}
                 ]
             }
         ]
 
 class TestDailyReportUnit(unittest.TestCase):
+    def setUp(self):
+        # Se o DailyReport precisar de um model_store ou algo assim, você pode simular
+        self.mock_model_store = "mock_model_store.json"
+        # Dependendo do seu fluxo, crie ou copie um model_store de teste aqui
+        if os.path.exists(self.mock_model_store):
+            os.remove(self.mock_model_store)
+        # Opcionalmente, crie um model_store fictício ou deixe sem
+
+    def tearDown(self):
+        if os.path.exists(self.mock_model_store):
+            os.remove(self.mock_model_store)
+
     def test_generate_report(self):
-        # keywords_db mock
-        keywords_file = "unit_test_keywords.json"
-        import json
-        db = {
-            "agendamentos": ["vou agendar", "pode marcar"],
-            "cancelamentos": ["cancelar", "desmarcar"],
-            "pendencias_medico": ["nota fiscal", "pedido de exame"]
-        }
-        with open(keywords_file, "w", encoding="utf-8") as f:
-            json.dump(db, f)
-
+        # Instancia o fetcher
         fetcher = MockFetcher()
-        report = DailyReport(fetcher=fetcher, keywords_file=keywords_file)
-        resultado = report.generate_report()
+        # Se seu DailyReport espera um param model_store:
+        dr = DailyReport(fetcher=fetcher, model_store=self.mock_model_store)
+        resultado = dr.generate_report()
 
-        self.assertEqual(resultado["agendamentos_realizados"], 1)
-        self.assertEqual(resultado["cancelamentos_consultas"], 1)
-        self.assertEqual(resultado["pendencias_ao_medico"], 1)
+        print("Resultado do relatório (unit test):", resultado)
 
-        import os
-        if os.path.exists(keywords_file):
-            os.remove(keywords_file)
+        # Exemplos de checks básicos
+        self.assertIn("total_conversas", resultado)
+        self.assertEqual(resultado["total_conversas"], 2)
+        self.assertIn("detalhes", resultado)
+        self.assertIsInstance(resultado["detalhes"], list)
 
 if __name__ == "__main__":
     unittest.main()

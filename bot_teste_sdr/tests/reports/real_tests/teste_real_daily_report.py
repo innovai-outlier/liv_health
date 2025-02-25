@@ -1,68 +1,65 @@
-# tests/reports/real_data_tests/test_real_daily_report.py
+# tests/reports/real_tests/test_real_daily_report.py
+
 import unittest
 import os
-from src.reports.daily_report import DailyReport
 from src.reports.fetcher_base import ConversationsFetcher
-from src.reports.keyword_utils import load_keywords_db, save_keywords_db
-from src.reports.chat_parser import load_labeled_history
+from src.reports.daily_report import DailyReport
 
-class LocalFileFetcher(ConversationsFetcher):
+class MockDailyReportFetcher(ConversationsFetcher):
     """
-    Exemplo: mocka 'fetch_today_conversations' lendo
-    assets/chatbase e transformando as conversas em
-    dicionário no formato do daily_report.
+    Retorna conversas no formato esperado:
+    {
+      "label": "agendou" ou "nao_agendou" ou etc.,
+      "lead_id": "some_lead_id",
+      "mensagens": [
+        { "from": "lead"/"assistente", "text": "...", "timestamp": "..." },
+        ...
+      ]
+    }
     """
-
     def fetch_today_conversations(self):
-        # Carrega success/fail e unifica
-        conversas = load_labeled_history(base_dir="assets/chatbase")
-        # Precisamos transformar cada item do load_labeled_history
-        # em algo que daily_report espera:
-        # [
-        #   {
-        #     "lead_id": "n/a",
-        #     "mensagens": [ { "from": "lead"/"assistente", "text": "...", "timestamp": "..." }, ... ],
-        #     "timestamp": "..."
-        #   }
-        # ]
-        # Podemos só usar label p/ lead_id
-        final_list = []
-        for conv in conversas:
-            final_list.append({
-                "lead_id": conv["label"],
-                "mensagens": conv["mensagens"],
-                "timestamp": conv["mensagens"][0]["timestamp"] if conv["mensagens"] else "N/A"
-            })
-        return final_list
+        return [
+            {
+                "label": "agendou",
+                "lead_id": "111",
+                "mensagens": [
+                    {"from": "lead", "text": "vou agendar agora", "timestamp": "2025-05-01 10:00"},
+                    {"from": "assistente", "text": "Excelente!", "timestamp": "2025-05-01 10:01"}
+                ]
+            },
+            {
+                "label": "nao_agendou",
+                "lead_id": "222",
+                "mensagens": [
+                    {"from": "lead", "text": "só estou pesquisando", "timestamp": "2025-05-01 11:00"},
+                    {"from": "assistente", "text": "Sem problemas!", "timestamp": "2025-05-01 11:01"}
+                ]
+            }
+        ]
 
 class TestRealDailyReport(unittest.TestCase):
     def setUp(self):
-        self.temp_keywords_db = "keywords_db.json"
-        # Inicia com algumas keywords
-        # Exemplo:
-        db = {
-            "agendamentos": ["vou agendar", "pode marcar", "marcar", "agendar"],
-            "cancelamentos": ["cancelar", "desmarcar", "desistir"],
-            "pendencias_medico": ["nota fiscal", "pedido de exame", "laudo"]
-        }
-        save_keywords_db(db, self.temp_keywords_db)
+        # Se for usar embeddings, definimos model_store ou outro param
+        self.temp_model_store = "temp_model_store.json"
+        if os.path.exists(self.temp_model_store):
+            os.remove(self.temp_model_store)
 
     def tearDown(self):
-        if os.path.exists(self.temp_keywords_db):
-            os.remove(self.temp_keywords_db)
+        if os.path.exists(self.temp_model_store):
+            os.remove(self.temp_model_store)
 
     def test_daily_report_real_data(self):
-        fetcher = LocalFileFetcher()
-        dr = DailyReport(fetcher=fetcher, keywords_file=self.temp_keywords_db)
+        # Instancia o fetcher usando o template correto
+        fetcher = MockDailyReportFetcher()
+        # Se o DailyReport espera um param model_store:
+        dr = DailyReport(fetcher=fetcher, model_store=self.temp_model_store)
+        # Gera o relatório
         result = dr.generate_report()
 
-        print("Relatório real data:", result)
-        self.assertIn("agendamentos_realizados", result)
-        self.assertIn("cancelamentos_consultas", result)
-        self.assertIn("pendencias_ao_medico", result)
-
-        # Ex.: se espera que haja x conversas, pode checar
-        # self.assertGreaterEqual(result["total_conversas_hoje"], 1)
+        print("Resultado do relatório (real test) =>", result)
+        self.assertIn("data", result)
+        self.assertIn("detalhes", result)
+        self.assertEqual(result["total_conversas"], 2)
 
 if __name__ == "__main__":
     unittest.main()

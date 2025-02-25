@@ -91,3 +91,7 @@ def load_labeled_history(base_dir="assets/chatbase"):
             all_conversations.append(conv)
 
     return all_conversations
+
+
+#Para teste rápido apenas - comente a linha de baixo se não for testar!!!
+#print(load_labeled_history())
