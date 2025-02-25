@@ -41,10 +41,6 @@ Este projeto é um framework modular e open source para **auditar** o desempenho
 
 ---
 
-*Esta versão atualizada do README reflete as melhorias implementadas no framework, garantindo uma abordagem robusta e escalável para auditoria de assistente virtual.*
-
----
-
 ## Formas de Execução
 
 - **Execução dos Scripts em `main/`:**
@@ -87,20 +83,6 @@ Este projeto é um framework modular e open source para **auditar** o desempenho
     ```bash
     python -m unittest discover -s tests/reports/real_tests
     ```
-
----
-
-## Assets
-
-A pasta de **assets** contém os arquivos essenciais para a configuração e execução do framework:
-
-- **assistant_prompt.json**: Contém os blocos (chunks) do prompt da assistente, que são carregados e usados para gerar mensagens com base nas diretrizes de atendimento.
-- **sinonimos.json**: Base de sinônimos utilizada para enriquecer a compreensão dos termos. Essa base pode ser atualizada automaticamente via o módulo de extração de sinônimos.
-- **chatbase/**: Reúne os históricos de conversas rotuladas, organizados em duas subpastas:
-  - **success_cases/**: Contém os logs de conversas de leads que agendaram e compareceram (casos de sucesso).
-  - **fail_cases/**: Contém os logs de conversas de leads que não agendaram, cancelaram ou tiveram problemas de comunicação (casos de falha).
-
-Esses arquivos e pastas fornecem o insumo necessário para o treinamento do classificador de embeddings, para o parser de conversas e para a extração de palavras-chave, além de serem fundamentais para a geração dos relatórios diários.
 
 ---
 
@@ -193,37 +175,6 @@ Essa abordagem mantém o prompt **organizado**, **estruturado** e **pronto** par
   Script para gerar o dataset a partir dos históricos de conversas, treinar o classificador multi-classe com embeddings e salvar o modelo no arquivo `model_store.json`.
 
 ---
-
-### Nova Pasta: `reports/`
-
-Esta pasta concentra funcionalidades específicas para a geração de relatórios e processamento dos dados das conversas:
-
-- **`chat_parser.py`**:  
-  Processa os arquivos de conversas rotuladas e os converte em uma estrutura padronizada.
-
-- **`keyword_extractor.py`** (Opcional):  
-  Extrai palavras-chave de históricos rotulados para gerar ou atualizar um dicionário de gatilhos.
-
-- **`keyword_utils.py`**:  
-  Auxilia no carregamento e salvamento do dicionário de keywords.
-
-- **`fetcher_base.py`, `fetcher_selenium.py`, `fetcher_api.py`**:  
-  São responsáveis por coletar as conversas do dia de diferentes fontes (Selenium ou API).
-
-- **`embeddings_utils.py`**:  
-  Gerencia o modelo de embeddings (Sentence-BERT) e funções de similaridade.
-
-- **`embedding_extractor.py`**:  
-  Treina e utiliza um classificador multi-classe com embeddings para categorizar mensagens do lead.
-
-- **`synonyms_utils.py`**:  
-  Gerencia o dicionário de sinônimos e permite fuzzy matching.
-
-- **`synonyms_extractor.py`**:  
-  Autoenriquece a base de sinônimos a partir dos dados de conversas.
-
-- **`daily_report.py`**:  
-  Gera o relatório diário, integrando dados dos fetchers, classificação por embeddings e análise de sinônimos.
 
 ### Métricas Principais
 
