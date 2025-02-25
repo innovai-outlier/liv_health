@@ -176,15 +176,15 @@ Essa abordagem mantém o prompt **organizado**, **estruturado** e **pronto** par
 
 ---
 
-### Métricas Principais
+## Métricas Principais
 
-## Métricas de Relatório de Conversa:
+### Métricas de Relatório de Conversa:
 1. **Agendamentos realizados**  
 2. **Cancelamentos**  
 3. **Pendências direcionadas ao médico**  
    (Cada métrica é identificada através de análises textuais combinadas com o classificador de embeddings e a base de sinônimos.)
 
-## Métricas de Auditoria Técnica de Conversas (humano ou máquina):
+### Métricas de Auditoria Técnica de Conversas (humano ou máquina):
 1. **Aptidao para o funil**  
    Avalia a aptidão do lead para o funil, comparando sinais de alta e baixa aptidão.
 
