@@ -2,9 +2,14 @@ selenium
 webdriver-manager
 transformers
 torch
+sentence-transformers
 nltk
+spacy
 fuzzywuzzy
 pandas
 matplotlib
 language-tool-python
 langchain
+scikit-learn
+numpy
+requests

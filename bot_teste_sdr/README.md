@@ -3,32 +3,104 @@
 Este projeto é um framework modular e open source para **auditar** o desempenho de uma assistente virtual em cenários de **atendimento** e **agendamento**, rodando **localmente** e usando ferramentas como **LangChain** para gerenciar o **contexto** da conversa sem ultrapassar limites de tokens.
 
 ---
-
 ## Funcionalidades
 
 1. **Configuração e Sumarização de Prompt**  
-   - Em `papeis_config.py`, carregamos a lista de **blocos** de prompt do assistente a partir de um arquivo JSON (por padrão, `assets/assistente_prompt.json`).  
-   - Esse arquivo contém vários **chunks** autocontidos que, juntos, formam o texto completo de instruções e diretrizes para a assistente.  
-   - Cada chunk evita exceder ~1024 tokens e mantém um contexto coeso (não há cortes de parágrafos no meio).  
-   - O framework decide, em `agentes.py`, **como** e **quando** concatenar ou aplicar cada chunk na geração de mensagens.
+   - Em `papeis_config.py`, o framework carrega uma lista de blocos (chunks) do prompt da assistente a partir de um arquivo JSON (por padrão, `assets/assistant_prompt.json`).  
+   - Cada chunk é autocontido, evitando exceder ~1024 tokens, e preserva a integridade do contexto, sem cortar parágrafos ou ideias.  
+   - O framework define, em `agentes.py`, como e quando concatenar ou aplicar esses blocos na geração das mensagens da assistente.
 
 2. **Definição de Agentes (Lead e Assistente)**  
-   - As classes `Agent`, `Lead` e `Assistente` definem como o lead (usuário/paciente) e a assistente se comportam.  
-   - O **Lead** pode emitir mensagens de teste, simulando diferentes perfis (crítico, moderado etc.).  
-   - A **Assistente** utiliza o prompt carregado em blocos para responder conforme as diretrizes do texto original (ex.: não confirmar agendamentos, usar SPIN Selling, etc.).
+   - As classes `Agent`, `Lead` e `Assistente` modelam o comportamento dos participantes da conversa, simulando perfis variados de leads (por exemplo, crítico, moderado) e as respostas da assistente de acordo com as diretrizes pré-definidas (como o uso de SPIN Selling e a restrição de confirmação de agendamentos).
 
-3. **Análise de Métricas**  
-   - O módulo `src/analysis/analise.py` oferece funções para avaliar vários indicadores de desempenho, como aptidão para o funil, temperatura do lead, conversão etc.  
-   - Há também o módulo `src/analysis/sinonimos.py` para manutenção e expansão de sinônimos usando fuzzy matching.
+3. **Análise de Métricas e Auditoria**  
+   - O módulo `src/analysis/analise.py` fornece funções para avaliar indicadores de desempenho (aptidão para o funil, temperatura do lead, conversão etc.) e mantém uma base de sinônimos via `src/analysis/sinonimos.py` (utilizando técnicas de fuzzy matching) para enriquecer a análise textual.
 
 4. **Gerenciamento de Histórico (Base de Conversas)**  
-   - Em `src/storage/base_conversas.py`, o framework pode armazenar conversas e métricas em JSON, permitindo auditorias estáticas (reaproveitando logs existentes) ou dinâmicas (gerando conversas em tempo real).
+   - Em `src/storage/base_conversas.py`, o framework armazena conversas e métricas em formato JSON, possibilitando auditorias tanto estáticas (com logs históricos existentes) quanto dinâmicas (gerando conversas em tempo real).
 
-5. **Integração com Selenium**  
-   - `src/interface/selenium_bot.py` implementa automação de testes de interface, por exemplo, WhatsApp Web ou páginas de formulário dummy, simulando trocas de mensagens.
+5. **Integração com Selenium e API**  
+   - `src/interface/selenium_bot.py` implementa automação para interagir com plataformas web (por exemplo, WhatsApp Web), simulando a troca de mensagens.  
+   - Módulos como `fetcher_selenium.py` e `fetcher_api.py` (na pasta `reports/`) permitem a coleta de conversas via Selenium ou através de chamadas de API, conforme a necessidade.
 
-6. **Integração com LangChain**  
-   - Em `src/main/main_langchain.py`, há um exemplo de uso de `ConversationSummaryMemory` do LangChain para gerenciar o contexto, resumir interações longas e evitar ultrapassar limites de tokens.
+6. **Processamento via Embeddings e Classificação Multi-Classe**  
+   - Com o uso do **Sentence-BERT** (integrado em `src/reports/embeddings_utils.py`), o framework gera embeddings das mensagens dos leads.  
+   - O módulo `src/reports/embedding_extractor.py` treina um classificador multi-classe (por exemplo, usando logistic regression) para distinguir entre diferentes rótulos, como “agendou”, “cancelou”, “pendencia” e “nao_agendou”.  
+   - Esse classificador permite capturar nuances e variações linguísticas automaticamente, sem depender exclusivamente de listas fixas de palavras-chave.
+
+7. **Expansão Automática de Sinônimos**  
+   - Os módulos `src/reports/synonyms_utils.py` e `src/reports/synonyms_extractor.py` trabalham juntos para manter e enriquecer dinamicamente a base de sinônimos.  
+   - Se um token novo não corresponder a nenhum sinônimo existente, o método `integrate_pendentes()` pode interativamente (ou via heurística) decidir se esse token deve ser adicionado a uma chave específica, enriquecendo a base.
+
+8. **Geração de Relatório Diário**  
+   - Em `src/reports/daily_report.py`, a classe `DailyReport` consolida as conversas coletadas e processadas, integrando a classificação via embeddings e o dicionário de sinônimos para calcular métricas importantes:
+     - **Agendamentos realizados:** Leads que demonstraram intenção ou confirmação de agendamento (sem cancelamento posterior).
+     - **Cancelamentos:** Casos em que o lead, após ter agendado, desistiu do compromisso.
+     - **Pendências direcionadas ao médico:** Situações em que, mesmo após agendamento, o lead solicita algo (por exemplo, nota fiscal, receita, exames) e não recebe a confirmação ou resolução, considerando também se mensagens do assistente indicam que a pendência foi resolvida (por exemplo, com termos como “resolvido”, “enviado”, “emitido”).
+   - O relatório é gerado combinando os dados do fetcher com as predições do classificador e a análise dos sinônimos, proporcionando uma visão detalhada de cada conversa.
+
+---
+
+*Esta versão atualizada do README reflete as melhorias implementadas no framework, garantindo uma abordagem robusta e escalável para auditoria de assistente virtual.*
+
+---
+
+## Formas de Execução
+
+- **Execução dos Scripts em `main/`:**
+  - `python src/main/main.py`  
+    Executa uma simulação básica sem LangChain, criando instâncias de Lead e Assistente e exibindo o histórico de conversas.
+  - `python src/main/main_langchain.py`  
+    Integra o uso do LangChain para gerenciar a memória de conversa e resumir interações, útil para contextos com longas conversas.
+
+- **Geração de Relatório Diário:**
+  - Crie um script (por exemplo, `real_daily_report.py`) que utiliza um fetcher (como `SeleniumConversationsFetcher` ou um fetcher local) para coletar conversas de `assets/chatbase` e gerar o relatório:
+    ```python
+    from src/reports.daily_report import DailyReport
+    from src/reports.fetcher_selenium import SeleniumConversationsFetcher
+
+    fetcher = SeleniumConversationsFetcher(driver_path="path/to/chromedriver", url="https://web.whatsapp.com/")
+    report = DailyReport(fetcher=fetcher, model_store="src/reports/model_store.json")
+    resultado = report.generate_report()
+    print(resultado)
+    ```
+  - **Treino de Embeddings:**  
+    Execute o script `train_model.py` (se disponível) para gerar o dataset a partir de `assets/chatbase`, treinar o classificador multi-classe e salvar o modelo em `model_store.json`:
+    ```bash
+    python src/reports/train_model.py
+    ```
+
+- **Execução de Testes:**
+  - **Testes Unitários:**  
+    ```bash
+    python -m unittest discover -s tests/unit_tests
+    ```
+  - **Testes de Integração:**  
+    ```bash
+    python -m unittest discover -s tests/integration_tests
+    ```
+  - **Testes dos Módulos em `reports/`:**  
+    ```bash
+    python -m unittest discover -s tests/reports
+    ```
+  - **Testes Reais (Dados Locais) em `tests/reports/real_tests`:**  
+    ```bash
+    python -m unittest discover -s tests/reports/real_tests
+    ```
+
+---
+
+## Assets
+
+A pasta de **assets** contém os arquivos essenciais para a configuração e execução do framework:
+
+- **assistant_prompt.json**: Contém os blocos (chunks) do prompt da assistente, que são carregados e usados para gerar mensagens com base nas diretrizes de atendimento.
+- **sinonimos.json**: Base de sinônimos utilizada para enriquecer a compreensão dos termos. Essa base pode ser atualizada automaticamente via o módulo de extração de sinônimos.
+- **chatbase/**: Reúne os históricos de conversas rotuladas, organizados em duas subpastas:
+  - **success_cases/**: Contém os logs de conversas de leads que agendaram e compareceram (casos de sucesso).
+  - **fail_cases/**: Contém os logs de conversas de leads que não agendaram, cancelaram ou tiveram problemas de comunicação (casos de falha).
+
+Esses arquivos e pastas fornecem o insumo necessário para o treinamento do classificador de embeddings, para o parser de conversas e para a extração de palavras-chave, além de serem fundamentais para a geração dos relatórios diários.
 
 ---
 
@@ -61,7 +133,135 @@ Exemplo simplificado do JSON:
 Essa abordagem mantém o prompt **organizado**, **estruturado** e **pronto** para cenários que exigem limites rígidos de tokens (como integrações com modelos de linguagem).
 
 ---
+## Principais Scripts
 
+### Na Pasta `main/`
+
+- **`main.py`**:  
+  Execução básica (sem LangChain). Cria instâncias de `Lead` e `Assistente`, simula trocas de mensagens e exibe o histórico final.
+
+- **`main_langchain.py`**:  
+  Integração com LangChain. Carrega blocos de prompt, configura `LLMChain` para gerenciar memória de conversa e exemplifica uma conversa com suporte a resumo.
+
+### Na Pasta `reports/`
+
+- **`chat_parser.py`**:  
+  Lê arquivos rotulados (success/fail) em `assets/chatbase/` e retorna listas de conversas no formato:
+  ```json
+  {
+    "label": "agendou" | "nao_agendou" | ...,
+    "lead_id": "...",
+    "mensagens": [
+      { "from": "lead" | "assistente", "text": "...", "timestamp": "..." },
+      ...
+    ]
+  }
+- **`fetcher_base.py`**:  
+  Define a interface `ConversationsFetcher` para a coleta de conversas. As classes concretas (por exemplo, para API ou Selenium) devem implementar essa interface.
+
+- **`fetcher_selenium.py`**:  
+  Exemplo de fetcher que utiliza Selenium para captar conversas do dia.
+
+- **`fetcher_api.py`**:  
+  Exemplo de fetcher que utiliza endpoints de API para obter conversas.
+
+- **`embeddings_utils.py`**:  
+  Carrega um modelo Sentence-BERT e fornece funções para gerar embeddings e calcular similaridade.
+
+- **`embedding_extractor.py`**:  
+  Treina um classificador (por exemplo, usando logistic regression) com embeddings gerados das mensagens. Este módulo pode trabalhar com dois rótulos (agendou vs. nao_agendou) ou com múltiplas classes (agendou, cancelou, pendencia, etc.). O classificador é salvo e carregado a partir de um arquivo (por exemplo, `model_store.json`).
+
+- **`synonyms_utils.py`**:  
+  Lida com um dicionário de sinônimos (por exemplo, associando "nota" a "nota fiscal") e permite fuzzy matching para enriquecer a compreensão dos termos.
+
+- **`synonyms_extractor.py`**:  
+  Autoenriquece a base de sinônimos ao detectar novos tokens não mapeados. Possui o método `integrate_pendentes()`, que, interativamente (ou via heurística), pergunta se determinado token pendente deve ser integrado a um sinônimo existente.
+
+- **`daily_report.py`**:  
+  Gera o relatório diário consolidando as conversas coletadas e processadas. Utiliza um `ConversationsFetcher` (Selenium, API ou local), integra o classificador multi-classe (via embeddings) e a base de sinônimos para detectar:
+  - Agendamentos realizados
+  - Cancelamentos
+  - Pendências direcionadas ao médico  
+    (Ex.: solicitações de nota fiscal, exame ou receita que não foram resolvidas, a menos que haja uma resposta com termos como “resolvido” ou “enviado”.)
+
+### Outros Scripts (Exemplos)
+
+- **`real_daily_report.py`**:  
+  Exemplo de script que carrega um fetcher local (por exemplo, `LocalFileFetcher` que lê dados reais de `assets/chatbase`) e roda o `DailyReport` com dados reais.
+
+- **`train_model.py`**:  
+  Script para gerar o dataset a partir dos históricos de conversas, treinar o classificador multi-classe com embeddings e salvar o modelo no arquivo `model_store.json`.
+
+---
+
+### Nova Pasta: `reports/`
+
+Esta pasta concentra funcionalidades específicas para a geração de relatórios e processamento dos dados das conversas:
+
+- **`chat_parser.py`**:  
+  Processa os arquivos de conversas rotuladas e os converte em uma estrutura padronizada.
+
+- **`keyword_extractor.py`** (Opcional):  
+  Extrai palavras-chave de históricos rotulados para gerar ou atualizar um dicionário de gatilhos.
+
+- **`keyword_utils.py`**:  
+  Auxilia no carregamento e salvamento do dicionário de keywords.
+
+- **`fetcher_base.py`, `fetcher_selenium.py`, `fetcher_api.py`**:  
+  São responsáveis por coletar as conversas do dia de diferentes fontes (Selenium ou API).
+
+- **`embeddings_utils.py`**:  
+  Gerencia o modelo de embeddings (Sentence-BERT) e funções de similaridade.
+
+- **`embedding_extractor.py`**:  
+  Treina e utiliza um classificador multi-classe com embeddings para categorizar mensagens do lead.
+
+- **`synonyms_utils.py`**:  
+  Gerencia o dicionário de sinônimos e permite fuzzy matching.
+
+- **`synonyms_extractor.py`**:  
+  Autoenriquece a base de sinônimos a partir dos dados de conversas.
+
+- **`daily_report.py`**:  
+  Gera o relatório diário, integrando dados dos fetchers, classificação por embeddings e análise de sinônimos.
+
+### Métricas Principais
+
+## Métricas de Relatório de Conversa:
+1. **Agendamentos realizados**  
+2. **Cancelamentos**  
+3. **Pendências direcionadas ao médico**  
+   (Cada métrica é identificada através de análises textuais combinadas com o classificador de embeddings e a base de sinônimos.)
+
+## Métricas de Auditoria Técnica de Conversas (humano ou máquina):
+1. **Aptidao para o funil**  
+   Avalia a aptidão do lead para o funil, comparando sinais de alta e baixa aptidão.
+
+2. **Temperatura do lead**  
+   Determina a "temperatura" do lead, atribuindo uma pontuação (ex.: 10 para alta temperatura, 5 para média, 2 para baixa).
+
+3. **Conversao**  
+   Verifica se a conversa indica conversão (interesse em agendamento efetivado).
+
+4. **Respostas genericas**  
+   Calcula a porcentagem de respostas genéricas na interação, sugerindo falta de personalização.
+
+5. **Grau de robotizacao**  
+   Quantifica o nível de automatismo (robotização) das respostas, indicando se há muita repetição ou rigidez no diálogo.
+
+6. **Compreensão semântica**  
+   Mede a similaridade semântica entre perguntas e respostas, avaliando se o contexto foi mantido.
+
+7. **Adequação gramatical**  
+   Verifica a correção gramatical das respostas, utilizando o LanguageTool para identificar erros.
+
+8. **Fuga das atribuições**  
+   Avalia se a assistente respeita suas atribuições, evitando encaminhar questões que não lhe competem.
+
+9. **Conhecimento dos serviços**  
+   Analisa se a assistente demonstra conhecimento adequado dos serviços oferecidos.
+
+---
 ## Instalação e Configuração
 
 ### 1. Clone o repositório:
@@ -89,8 +289,15 @@ pip install -r requirements.txt
 
 ### 4. Configure os Arquivos de Assets:
 
-- `assets/assistant_prompt.json`: Contém os blocos do prompt da assistente.
-- `assets/sinonimos.json`: Base de sinônimos (carregada e atualizada automaticamente).
+A pasta de **assets** contém os arquivos essenciais para a configuração e execução do framework:
+
+- **assistant_prompt.json**: Contém os blocos (chunks) do prompt da assistente, que são carregados e usados para gerar mensagens com base nas diretrizes de atendimento.
+- **sinonimos.json**: Base de sinônimos utilizada para enriquecer a compreensão dos termos. Essa base pode ser atualizada automaticamente via o módulo de extração de sinônimos.
+- **chatbase/**: Reúne os históricos de conversas rotuladas, organizados em duas subpastas:
+  - **success_cases/**: Contém os logs de conversas de leads que agendaram e compareceram (casos de sucesso).
+  - **fail_cases/**: Contém os logs de conversas de leads que não agendaram, cancelaram ou tiveram problemas de comunicação (casos de falha).
+
+Esses arquivos e pastas fornecem o insumo necessário para o treinamento do classificador de embeddings, para o parser de conversas e para a extração de palavras-chave, além de serem fundamentais para a geração dos relatórios diários.
 
 ---
 
@@ -98,48 +305,80 @@ pip install -r requirements.txt
 
 ### Execução Básica (Sem LangChain)
 
-```bash
-python src/main/main.py
-```
-- Cria instâncias de `Lead` e `Assistente`.
-- Gera mensagens alternadas.
-- Ao final, exibe o histórico completo no console.
+### Execução dos Scripts em `main/`
 
-### Execução com LangChain
+- **`python src/main/main.py`**: Execução básica, sem LangChain.
+- **`python src/main/main_langchain.py`**: Execução com LangChain.
 
-```bash
-python src/main/main_langchain.py
-```
-- Carrega os blocos do prompt.
-- Configura `LLMChain` com `ConversationSummaryMemory`.
-- Simula interação de teste, exibindo a resposta gerada.
+### Scripts Diversos na Pasta `reports/`
 
----
+- **`python src/reports/train_model.py`** (exemplo): Gera embeddings, treina logistic regression.
+- **`python src/reports/real_daily_report.py`** (exemplo): Pega conversas via `LocalFileFetcher`, roda `DailyReport`, imprime relatório.
+- **`python src/reports/synonyms_extractor.py`**: Extração de tokens pendentes para sinônimos.
+
+### Geração de Relatório Diário
+
+- Em `src/reports/daily_report.py`, a classe `DailyReport` gera o relatório diário usando um `ConversationsFetcher` (por exemplo, implementado via Selenium, API ou LocalFileFetcher) e o classificador multi-classe treinado, que é carregado a partir do arquivo `model_store.json`.  
+- O classificador foi treinado utilizando embeddings gerados por Sentence-BERT, permitindo distinguir rótulos como “agendou”, “cancelou”, “pendencia” e “nao_agendou”. Além disso, o relatório integra uma lógica de detecção refinada para pendências, verificando se mensagens do assistente indicam que a pendência foi resolvida (por exemplo, com termos como “resolvido”, “enviado” ou “emitido”).  
+- Para executar, crie um script ou teste, por exemplo:
+
+```python
+from src.reports.daily_report import DailyReport
+from src.reports.fetcher_selenium import SeleniumConversationsFetcher
+
+# Exemplo utilizando Selenium: forneça o caminho correto para o ChromeDriver e a URL apropriada
+fetcher = SeleniumConversationsFetcher(driver_path="path/to/chromedriver", url="https://web.whatsapp.com/")
+
+# Cria o relatório diário, carregando o classificador treinado de 'model_store.json'
+report = DailyReport(fetcher=fetcher, model_store="src/reports/model_store.json")
+resultado = report.generate_report()
+print(resultado)
 
 ## Testes
 
 ### Testes Unitários
+
 ```bash
 python -m unittest discover -s tests/unit_tests
 ```
+- Verifica módulos isolados, como analise, agentes, etc.
 
 ### Testes de Integração
+
 ```bash
 python -m unittest discover -s tests/integration_tests
 ```
+- Checa interação global com Selenium ou API.
+
+### Testes na Pasta `reports`
+
+```bash
+python -m unittest discover -s tests/reports
+```
+- Inclui scripts específicos que testam parser, synonyms e daily report.
+
+### Testes Reais (dados locais)
+
+```bash
+python -m unittest discover -s tests/reports/real_tests
+```
+- Usa `LocalFileFetcher` lendo `assets/chatbase` e roda fluxo de embeddings + relatório.
 
 ---
 
 ## Considerações Adicionais
 
-- **Modelos Leves**:  
+- **Modelos Leves**  
   Utiliza `EleutherAI/gpt-neo-125M` e `distilgpt2` para execução local. Você pode trocar por modelos mais robustos se tiver recursos de GPU.
 
-- **Gerenciamento de Contexto**:  
+- **Gerenciamento de Contexto**  
   LangChain e técnicas de truncamento/sumarização ajudam a manter conversas longas sem exceder os limites de tokens.
 
-- **Prompt da Assistente**:  
+- **Prompt da Assistente**  
   Agora fragmentado em blocos JSON, facilitando o uso seletivo ou concatenado, sem arriscar cortes abruptos de contexto.
+
+- **Relatório Diário**  
+  Possui arquitetura modular: fetchers diferentes (Selenium, API) e `daily_report.py` para calcular métricas (agendamentos, cancelamentos, pendências).
 
 ---
 
