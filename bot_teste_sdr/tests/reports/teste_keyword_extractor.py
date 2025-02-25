@@ -1,6 +1,6 @@
 # tests/reports/test_keyword_extractor.py
 import unittest
-import os
+import os, json
 from src.reports.keyword_extractor import KeywordExtractor
 
 class TestKeywordExtractor(unittest.TestCase):
@@ -8,6 +8,10 @@ class TestKeywordExtractor(unittest.TestCase):
         self.temp_keywords_file = "temp_keywords_db.json"
         if os.path.exists(self.temp_keywords_file):
             os.remove(self.temp_keywords_file)
+        # Aqui criamos manualmente um dicionário
+        db = { "agendou": [], "nao_agendou": [] }
+        with open(self.temp_keywords_file, "w", encoding="utf-8") as f:
+            json.dump(db, f)
 
     def tearDown(self):
         if os.path.exists(self.temp_keywords_file):

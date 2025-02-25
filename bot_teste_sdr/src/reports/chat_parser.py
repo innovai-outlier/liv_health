@@ -61,7 +61,7 @@ def parse_chat_file(file_path, label):
         "mensagens": msgs
     }
 
-def load_labeled_history(base_dir="chatbase"):
+def load_labeled_history(base_dir="../../assets/chatbase"):
     """
     Percorre success_cases e fail_cases, parseia cada _chat.txt.
     Retorna lista de conversas rotuladas.

@@ -14,7 +14,7 @@ class KeywordExtractor:
         # Carrega db existente ou inicia vazio
         self.keywords_db = load_keywords_db(self.keywords_file)
 
-    def process_labeled_history(self, base_dir="chatbase"):
+    def process_labeled_history(self, base_dir="../../assets/chatbase"):
         """
         Lê conversas rotuladas e atualiza self.keywords_db
         com tokens encontrados.
