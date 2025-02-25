@@ -2,24 +2,19 @@
 from .fetcher_base import ConversationsFetcher
 
 class SeleniumConversationsFetcher(ConversationsFetcher):
-    """
-    Exemplo de fetcher usando Selenium 
-    (neste exemplo simplificado, retornamos mock)
-    """
-
     def __init__(self, driver_path, url):
         self.driver_path = driver_path
         self.url = url
 
     def fetch_today_conversations(self):
         # TODO: Implementar Selenium real
+        # Exemplo: Retorna mock
         return [
             {
-                "lead_id": "555-1111",
+                "lead_id": "selenium_mock_lead",
                 "mensagens": [
-                    {"from": "lead", "text": "vou agendar hoje", "timestamp": "2025-05-02 09:00"},
-                    {"from": "assistente", "text": "ótimo!", "timestamp": "2025-05-02 09:01"}
-                ],
-                "timestamp": "2025-05-02 09:00"
+                    {"from": "lead", "text": "vou agendar agora", "timestamp": "2025-05-01 10:00"},
+                    {"from": "assistente", "text": "Perfeito", "timestamp": "2025-05-01 10:01"}
+                ]
             }
         ]
