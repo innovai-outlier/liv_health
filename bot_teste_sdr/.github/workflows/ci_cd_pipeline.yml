@@ -1,102 +1,89 @@
-name: Validar Relatório Diário (Human-in-the-Loop)
-
+---
+name: CI/CD Pipeline - Validacao Humana
 on:
   pull_request:
     branches:
       - main
-
+  workflow_dispatch:
 jobs:
   generate-report:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do código
+      - name: Checkout do codigo
         uses: actions/checkout@v3
-
       - name: Configurar Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.12"
-
-      - name: Instalar dependências
+      - name: Instalar dependencias
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Gerar Relatório Diário
+      - name: Gerar Relatorio Diario
         run: |
           source venv/bin/activate
           python src/reports/daily_report.py
-          mv output/relatorio_diario.json daily_report.json  # Salva corretamente
-
-      - name: Salvar Relatório como Artefato
+          mv output/relatorio_diario.json daily_report.json
+      - name: Salvar Relatorio como Artefato
         uses: actions/upload-artifact@v3
         with:
           name: daily_report
           path: daily_report.json
-
   human-validation:
     needs: generate-report
     runs-on: ubuntu-latest
     steps:
-      - name: Baixar Relatório Diário
+      - name: Baixar Relatorio Diario
         uses: actions/download-artifact@v3
         with:
           name: daily_report
-
       - name: Criar Arquivo de Feedback
         run: |
           echo '{ "status": "pending", "comentarios": "" }' > feedback.json
-
-      - name: Upload do Arquivo de Feedback para Edição Humana
+      - name: Upload do Arquivo de Feedback para Edicao Humana
         uses: actions/upload-artifact@v3
         with:
           name: feedback
           path: feedback.json
-
-      - name: Instalar jq para verificação do feedback
+      - name: Instalar jq para verificacao do feedback
         run: sudo apt-get install -y jq
-
       - name: Aguardar Feedback Humano
         run: |
-          echo "⚠️ Aguardando validação humana... Por favor, revise o arquivo feedback.json."
+          echo "Aguardando validacao humana..."
+          echo " Por favor, revise o arquivo feedback.json."
           while [[ "$(jq -r '.status' feedback.json)" == "pending" ]]; do
             sleep 60
           done
         timeout-minutes: 60
-
   apply-feedback:
     needs: human-validation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do Código
+      - name: Checkout do Codigo
         uses: actions/checkout@v3
-
       - name: Baixar Feedback Validado
         uses: actions/download-artifact@v3
         with:
           name: feedback
-
       - name: Aplicar Feedback ao Algoritmo
         run: |
           source venv/bin/activate
           python src/reports/apply_feedback.py feedback.json
-
       - name: Atualizar Modelo com Feedback
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add src/reports/
-          git diff --cached --quiet || git commit -m "Aplicado feedback humano ao relatório diário"
+          git diff --cached --quiet || \
+          git commit -m "Aplicado feedback humano ao relatorio diario"
           git push origin HEAD:${{ github.ref }}
-
-      - name: Testar Aplicação de Feedback
+      - name: Testar Aplicacao de Feedback
         run: |
           source venv/bin/activate
           python -m unittest tests/reports/real_tests/teste_real_feedback.py
-
-      - name: Merge Automático do PR (Se Validado)
+      - name: Merge Automatico do PR (Se Validado)
         if: success()
         uses: "peter-evans/enable-pull-request-automerge@v2"
         with:
