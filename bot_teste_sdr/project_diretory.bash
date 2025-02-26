@@ -1,43 +1,43 @@
-project_root/
+bot_teste_sdr/
 ├── assets/
-│   ├── assistente_prompt.txt       # Arquivo com o prompt completo da assistente (texto longo)
-│   └── sinonimos.json              # Base de sinônimos (gerada/atualizada automaticamente)
+│   ├── chatbase/
+│   ├── assistente_prompt.json
+│   ├── sinonimos.json
 ├── src/
-│   ├── config/
-│   │   ├── __init__.py
-│   │   ├── configuracoes.py        # Configurações gerais (base de sinônimos, etc.)
-│   │   ├── constantes.py           # Listas de expressões e parâmetros (como FUZZY_THRESHOLD)
-│   │   └── papis_config.py         # Carregamento dos modelos leves, prompts (carregados de arquivo e resumidos) e parâmetros de geração
 │   ├── agents/
-│   │   ├── __init__.py
-│   │   └── agentes.py              # Classes Agent, Lead e Assistente com métodos de geração
 │   ├── analysis/
-│   │   ├── __init__.py
-│   │   ├── analise.py              # Funções de avaliação das métricas
-│   │   └── sinonimos.py            # Funções para extração e expansão da base de sinônimos
-│   ├── storage/
-│   │   ├── __init__.py
-│   │   └── base_conversas.py       # Gerenciamento e armazenamento da base histórica de conversas
+│   ├── config/
 │   ├── interface/
-│   │   ├── __init__.py
-│   │   └── selenium_bot.py         # Funções de automação com Selenium
-│   └── main/
-│       ├── __init__.py
-│       ├── main.py                 # Script principal para execução básica (sem LangChain)
-│       └── main_langchain.py       # Exemplo de integração com LangChain
+│   ├── main/
+│   ├── reports/
+│   │   ├── chat_parser.py
+│   │   ├── daily_report.py
+│   │   ├── embedding_extractor.py
+│   │   ├── embedding_utils.py
+│   │   ├── fetcher_api.py
+│   │   ├── fetcher_base.py
+│   │   ├── fetcher_selenium.py
+│   │   ├── keyword_extractor.py
+│   │   ├── keyword_utils.py
+│   │   ├── synonyms_extractor.py
+│   │   ├── synonyms_utils.py
+│   │   ├── human_feedback.py  ⬅ **Novo arquivo para captura e aplicação de feedback**
+│   │   ├── apply_feedback.py  ⬅ **Novo arquivo para captura e aplicação de feedback**
+├── storage/
+│   ├── base_conversas.py
 ├── tests/
-│   ├── unit_tests/
-│   │   ├── __init__.py
-│   │   ├── test_analise.py
-│   │   ├── test_agentes.py
-│   │   ├── test_sinonimos.py
-│   │   └── test_base_conversas.py
-│   └── integration_tests/
-│       ├── __init__.py
-│       ├── test_selenium_bot.py
-│       ├── test_integration_local.py
-│       └── test_langchain_integration.py
-├── .gitignore
-├── LICENSE
+│   ├── integration_tests/
+│   ├── reports/
+│   │   ├── real_tests/
+│   │   │   ├── teste_real_daily_report.py
+│   │   │   ├── teste_real_chatbase.py
+│   │   │   ├── teste_real_embedding.py
+│   │   │   ├── teste_real_feedback.py  ⬅ **Novo teste para validar integração do feedback humano**
+├── output/
+│   ├── relatorio_diario.json  ⬅ **Relatório diário gerado automaticamente**
+│   ├── feedback.json  ⬅ **Arquivo onde o feedback é preenchido manualmente**
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml  ⬅ **Arquivo atualizado do GitHub Actions para CI/CD**
+├── requirements.txt
 ├── README.md
-└── requirements.txt
