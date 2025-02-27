@@ -1,0 +1,965 @@
+[
+    {
+        "label": "agendou",
+        "lead_id": "+55 11 99771-5208",
+        "mensagens": [
+            {
+                "timestamp": "2024-12-10 10:45:58",
+                "from": "lead",
+                "text": "‎As mensagens e as ligações são protegidas com a criptografia de ponta a ponta e ficam somente entre você e os participantes desta conversa. Nem mesmo o WhatsApp pode lê-las ou ouvi-las."
+            },
+            {
+                "timestamp": "2024-12-10 10:45:58",
+                "from": "lead",
+                "text": ""
+            },
+            {
+                "timestamp": "2024-12-10 10:42:59",
+                "from": "lead",
+                "text": "Olá 👋 bom dia. Meu nome é Ligia Gabas, meu esposo (Arlei) conversou com vcs recentemente e comentou comigo a respeito da Dra Cristal. Fiquei muito interessada e gostaria de saber quando seria possível agendar uma primeira consulta presencial pra mim. Agradeço desde já. ☺️"
+            },
+            {
+                "timestamp": "2024-12-10 10:43:01",
+                "from": "assistente",
+                "text": "Olá, aqui é a Sol, assistente da Dra. Cristal! Seja muito bem-vindo(a)!! Como posso te chamar? ☺️"
+            },
+            {
+                "timestamp": "2024-12-10 10:44:24",
+                "from": "lead",
+                "text": "Olá Sol, obrigada ☺️ tudo bem contigo? Pode me chamar de Ligia."
+            },
+            {
+                "timestamp": "2024-12-10 10:52:42",
+                "from": "assistente",
+                "text": "Bem vinda Lígia! 💐 Tudo bem?"
+            },
+            {
+                "timestamp": "2024-12-10 11:08:21",
+                "from": "lead",
+                "text": "Pra mim a tarde é melhor."
+            },
+            {
+                "timestamp": "2024-12-10 11:10:00",
+                "from": "assistente",
+                "text": "Ah legal... teria disponibilidade para a próxima terça, 17/12 às 15h?"
+            },
+            {
+                "timestamp": "2024-12-10 11:14:36",
+                "from": "lead",
+                "text": "Pode ser sim Sol 👍"
+            },
+            {
+                "timestamp": "2024-12-10 11:18:43",
+                "from": "assistente",
+                "text": "Ah legal Lígia 😉"
+            },
+            {
+                "timestamp": "2024-12-10 11:42:25",
+                "from": "lead",
+                "text": "Nome completo: Ligia Regina Martins Gabas"
+            },
+            {
+                "timestamp": "2024-12-10 11:54:08",
+                "from": "assistente",
+                "text": "Marcadinho Lígia 🌹"
+            },
+            {
+                "timestamp": "2024-12-10 11:55:32",
+                "from": "assistente",
+                "text": "Lígia, vamos dar início ao preparo para sua consulta?"
+            },
+            {
+                "timestamp": "2024-12-16 11:15:47",
+                "from": "assistente",
+                "text": "Olá Lígia, bom dia! Tudo bem? 😊"
+            },
+            {
+                "timestamp": "2024-12-16 11:19:10",
+                "from": "lead",
+                "text": "Olá Sol, bom dia. Eu já ia mesmo mandar mensagem pra vcs. Meu pai teve um AVC (leve) de sábado pra domingo e segue hospitalizado em observação. Estou revezando o acompanhamento dele com a minha mãe. Ele tem a possibilidade de alta médica amanhã, mas não sabemos se isso vai mesmo se confirmar e o horário que aconteceria. Com isso prefiro postergar a minha consulta ok 👍 Me desculpe por avisar tão perto, mas estamos lidando com o imprevisto por aqui."
+            },
+            {
+                "timestamp": "2024-12-16 11:27:56",
+                "from": "assistente",
+                "text": "Poxa Lígia, sinto muito 😟 Desejo boa e breve recuperação pra ele 🍀"
+            },
+            {
+                "timestamp": "2024-12-16 11:29:21",
+                "from": "lead",
+                "text": "Sol posso voltar a falar contigo amanhã? Acho melhor deixar para agendar depois que souber a informação da alta, pra não correr o risco de ter que trocar a data novamente."
+            },
+            {
+                "timestamp": "2024-12-16 11:31:34",
+                "from": "assistente",
+                "text": "Claro querida, fique tranquila."
+            },
+            {
+                "timestamp": "2024-12-16 11:32:02",
+                "from": "lead",
+                "text": "Muito obrigada ☺️"
+            },
+            {
+                "timestamp": "2024-12-19 10:39:39",
+                "from": "lead",
+                "text": "Olá 👋 bom dia. Tudo bem?"
+            },
+            {
+                "timestamp": "2024-12-19 10:41:43",
+                "from": "lead",
+                "text": "Sol passando pra te avisar que infelizmente não vou conseguir mesmo ir amanhã às 13:00 ok. Meus pais estão precisando de ajuda nesse momento e estamos aqui priorizando essa parte. Gostaria de ver com vc da gente remarcar para a próxima data possível a partir de janeiro. Obrigada mais uma vez pela compreensão e disposição em ajudar 🙏🥹💖"
+            },
+            {
+                "timestamp": "2024-12-19 10:43:47",
+                "from": "assistente",
+                "text": "Bom dia Lígia! Eu estou bem, e vc?"
+            },
+            {
+                "timestamp": "2024-12-19 10:43:59",
+                "from": "assistente",
+                "text": "Claro, sem problemas... cuide de seus pais!"
+            },
+            {
+                "timestamp": "2024-12-19 10:44:46",
+                "from": "assistente",
+                "text": "Se quiser, tenho um horário disponível no dia 07/01, terça-feira às 16h. O que acha?"
+            },
+            {
+                "timestamp": "2024-12-19 10:45:56",
+                "from": "lead",
+                "text": "Pois é, não é nem tanto a questão de sequelas, porque meu pai teve muita sorte e foram poucas, mas está sendo teimoso e abusando, e minha mãe fica sobrecarregada com a situação. Estamos cuidando de perto."
+            },
+            {
+                "timestamp": "2024-12-19 10:46:29",
+                "from": "lead",
+                "text": "Perfeito 👍 pode deixar marcado que estarei aí. Muito obrigada querida. ☺️"
+            },
+            {
+                "timestamp": "2024-12-19 10:50:43",
+                "from": "assistente",
+                "text": "Ok, combinado então 🥰"
+            },
+            {
+                "timestamp": "2024-12-23 12:14:18",
+                "from": "assistente",
+                "text": "Olááá, Ligia! Tenho um presente para você!"
+            },
+            {
+                "timestamp": "2025-01-06 15:04:30",
+                "from": "lead",
+                "text": "Olá 👋 boa tarde. Tudo bem? Passando apenas para confirmar a minha consulta de amanhã às 16:00 e avisar que consegui responder o questionário ok 👍"
+            },
+            {
+                "timestamp": "2025-01-06 15:04:31",
+                "from": "assistente",
+                "text": "Olá, aqui é a Sol, assistente da Dra. Cristal! Seja muito bem-vindo(a)!! Como posso te chamar? ☺️"
+            },
+            {
+                "timestamp": "2025-01-06 15:05:01",
+                "from": "lead",
+                "text": "Olá 👋 boa tarde. Aqui é a Ligia. Tudo bem? Passando apenas para confirmar a minha consulta de amanhã às 16:00 e avisar que consegui responder o questionário ok 👍"
+            },
+            {
+                "timestamp": "2025-01-06 15:39:38",
+                "from": "assistente",
+                "text": "Olá Lígia, boa tarde! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-06 15:40:18",
+                "from": "assistente",
+                "text": "Sim, a consulta está confirmada. 😉"
+            },
+            {
+                "timestamp": "2025-01-06 15:40:18",
+                "from": "lead",
+                "text": "Muito obrigada ☺️ desejo o mesmo para vocês também."
+            },
+            {
+                "timestamp": "2025-01-06 15:40:42",
+                "from": "lead",
+                "text": "Perfeito. 👍 Nos vemos amanhã então."
+            },
+            {
+                "timestamp": "2025-01-06 15:40:52",
+                "from": "assistente",
+                "text": "Obrigada 🙌✨"
+            },
+            {
+                "timestamp": "2025-01-06 15:41:17",
+                "from": "assistente",
+                "text": "Ótimo, até amanhã 😘"
+            },
+            {
+                "timestamp": "2025-01-07 12:32:54",
+                "from": "assistente",
+                "text": "Boa tarde Lígia, tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-07 14:46:54",
+                "from": "lead",
+                "text": "Olá 👋 boa tarde. Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-07 14:49:42",
+                "from": "lead",
+                "text": "Estou acompanhando a minha filha em uma consulta médica desde as 14:00, achei que seria uma coisa rápida, mas parece que ela vai precisar fazer um procedimento. Ela usa uma sonda do tipo GTT e o médico está fazendo os procedimentos burocráticos aqui pra ver se faz a troca da sonda ainda hoje. Eu não estava contando com isso 😮‍💨 mas se der certo vai ser uma ótima solução para a Bia."
+            },
+            {
+                "timestamp": "2025-01-07 14:50:41",
+                "from": "lead",
+                "text": "Queria saber como poderíamos resolver isso, remarco para outro dia e horário? Ou será que teria disponibilidade para mais tarde?"
+            },
+            {
+                "timestamp": "2025-01-07 14:51:54",
+                "from": "lead",
+                "text": "Peço desculpas por isso, foi um imprevisto mesmo. Achei que hoje nós iríamos apenas combinar o momento para fazer a troca da sonda, mas ele está disponível e avaliou que seria melhor fazer a troca o quanto antes."
+            },
+            {
+                "timestamp": "2025-01-07 14:52:42",
+                "from": "assistente",
+                "text": "Lígia, com certeza é um motivo mais que plausível! Torcemos para que dê tudo certo com sua filha! 🙌🍀"
+            },
+            {
+                "timestamp": "2025-01-07 14:53:28",
+                "from": "lead",
+                "text": "Estou com a Bia aqui no ambulatório do Hospital 9 de julho, teoricamente em 30 minutos no máximo eu consigo estar aí. Mas agora estou na dependência da duração do procedimento."
+            },
+            {
+                "timestamp": "2025-01-07 14:55:00",
+                "from": "assistente",
+                "text": "Por incrível que pareça, acabamos de ter uma desistência da paciente de hj para às 17:00h, que precisou reagendar para quinta-feira."
+            },
+            {
+                "timestamp": "2025-01-07 15:06:06",
+                "from": "lead",
+                "text": "Vamos fazer assim, se eu estiver liberada aqui até as 16:00 eu confirmo com vc e vou na consulta das 17:00 ainda hoje. Caso a situação aqui acabe demorando mais aí a gente remarca para outro dia. Pode ser assim? Te aviso antes das 15:59. 🫠😮‍💨"
+            },
+            {
+                "timestamp": "2025-01-07 15:22:39",
+                "from": "lead",
+                "text": "Olá 👋 o médico acabou de confirmar que vai dar certo fazer o procedimento ainda hoje, mas agora estamos aguardando a parte burocrática de autorização do plano de saúde. Com isso acho melhor a gente remarcar para outro dia mesmo. Agradeço de coração pela compreensão e pela disponibilidade para ajudar. ☺️💖"
+            },
+            {
+                "timestamp": "2025-01-07 15:27:35",
+                "from": "assistente",
+                "text": "Sem problemas Lígia, cuide da sua filha 🌹"
+            },
+            {
+                "timestamp": "2025-01-07 15:28:22",
+                "from": "lead",
+                "text": "Pode ser então ☺️💖 muito obrigada"
+            },
+            {
+                "timestamp": "2025-01-07 15:43:24",
+                "from": "assistente",
+                "text": "Remarcado Lígia:"
+            },
+            {
+                "timestamp": "2025-01-08 10:03:54",
+                "from": "assistente",
+                "text": "Oi Lígia, bom dia! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-08 10:04:50",
+                "from": "assistente",
+                "text": "Lígia, agendamos para amanhã às 13h, porém a Dra. tem um compromisso logo após as consultas, podemos antecipar para 12:00h?"
+            },
+            {
+                "timestamp": "2025-01-08 10:07:25",
+                "from": "lead",
+                "text": "Olá 👋 bom dia. Deu tudo certo sim ☺️ sonda GTT trocada, agora está novinha em folha 💖"
+            },
+            {
+                "timestamp": "2025-01-08 10:07:37",
+                "from": "lead",
+                "text": "Tranquilo, pode ser sim. 👍"
+            },
+            {
+                "timestamp": "2025-01-08 10:08:58",
+                "from": "assistente",
+                "text": "Perfeito, reagendado para 12:00h amanhã."
+            },
+            {
+                "timestamp": "2025-01-09 11:23:20",
+                "from": "assistente",
+                "text": "Oi Lígia, tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-09 11:24:17",
+                "from": "lead",
+                "text": "Maravilha, estou a caminho já. Obrigado ☺️"
+            },
+            {
+                "timestamp": "2025-01-09 14:50:13",
+                "from": "assistente",
+                "text": "Oi Lígia, boa tarde 😊"
+            },
+            {
+                "timestamp": "2025-01-20 17:04:16",
+                "from": "assistente",
+                "text": "Olá, Ligia! Tudo bem por aí? É a Sol aqui..."
+            },
+            {
+                "timestamp": "2025-01-20 17:04:35",
+                "from": "assistente",
+                "text": "Passando pra saber se você conseguiu fazer seus exames e se posso deixar seu retorno com a Dra. agendado"
+            },
+            {
+                "timestamp": "2025-01-22 09:50:39",
+                "from": "lead",
+                "text": "Olá Sol ☺️ bom dia. Tudo bem sim, e vc?"
+            },
+            {
+                "timestamp": "2025-01-22 09:56:52",
+                "from": "assistente",
+                "text": "Sol: Bom dia Lígia! Tudo bem tbm, obrigada 🤗"
+            },
+            {
+                "timestamp": "2025-01-23 17:18:43",
+                "from": "lead",
+                "text": "Olá Sol, boa tarde. Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-23 17:19:54",
+                "from": "lead",
+                "text": "Quero fazer os exames na semana que vem, sem falta. Assim que me liberarem. Aí já podemos combinar o meu retorno."
+            },
+            {
+                "timestamp": "2025-01-23 17:22:56",
+                "from": "assistente",
+                "text": "Sol: Olá Lígia, boa tarde!"
+            },
+            {
+                "timestamp": "2025-01-23 17:23:10",
+                "from": "assistente",
+                "text": "Ahh deixa eu falar com a Dra. e te aviso aqui"
+            },
+            {
+                "timestamp": "2025-01-23 17:23:31",
+                "from": "lead",
+                "text": "Obrigada ☺️"
+            },
+            {
+                "timestamp": "2025-01-24 10:00:54",
+                "from": "assistente",
+                "text": "Sol: Oi Lígia, bom dia! Tudo bem? 😊"
+            },
+            {
+                "timestamp": "2025-01-24 10:01:02",
+                "from": "assistente",
+                "text": "Veja se assim funciona...."
+            },
+            {
+                "timestamp": "2025-01-24 10:01:09",
+                "from": "assistente",
+                "text": "https://assistant.memed.com.br/p/NZ5W3S?utm_source=copylink"
+            },
+            {
+                "timestamp": "2025-01-24 10:27:05",
+                "from": "lead",
+                "text": "Bom dia Sol, muito obrigada ☺️ Vou encaminhar agora mesmo para o plano."
+            },
+            {
+                "timestamp": "2025-01-24 10:33:05",
+                "from": "assistente",
+                "text": "Lígia, aproveitando, deixa eu te perguntar... rs"
+            },
+            {
+                "timestamp": "2025-01-24 10:54:52",
+                "from": "lead",
+                "text": "Ainda não, mas já posso fazer. Vc me manda algum link?"
+            },
+            {
+                "timestamp": "2025-01-24 11:01:16",
+                "from": "assistente",
+                "text": "Oba... Hj falei pra ela que iria dar bronca em todos os pacientes dela que ainda não tivessem feito isso.. hahahaha"
+            },
+            {
+                "timestamp": "2025-01-24 11:03:06",
+                "from": "assistente",
+                "text": "Muitos pacientes nos procuram através do Google, mas a plataforma só apresenta os médicos que tiverem avaliações por ali. Então, se você puder colaborar ficaremos imensamente gratas 🙌"
+            },
+            {
+                "timestamp": "2025-02-05 13:06:21",
+                "from": "lead",
+                "text": "Olá Sol, boa tarde. Tudo bem contigo? Passando pra avisar que depois de tomar uma canseira do plano de saúde 😮‍💨🥲 hoje consegui realizar as ultimas coletas de exame. Assim que estiver com os laudos prontos eu aviso pra gente agendar o meu retorno ok."
+            },
+            {
+                "timestamp": "2025-02-05 13:14:10",
+                "from": "assistente",
+                "text": "Sol: Olá Lígia querida, estou bem e você?"
+            },
+            {
+                "timestamp": "2025-02-05 13:14:37",
+                "from": "assistente",
+                "text": "Esses planos de saúde estão deixando todo mundo maluco menina 😱"
+            },
+            {
+                "timestamp": "2025-02-05 13:15:00",
+                "from": "assistente",
+                "text": "Mas combinado. Quando tiver previsão me avisa e agendamos 😉😘"
+            },
+            {
+                "timestamp": "2025-02-05 13:18:21",
+                "from": "lead",
+                "text": "Tudo bem por aqui, a Bia tá super bem 🥰 a troca da sonda foi ótima."
+            },
+            {
+                "timestamp": "2025-02-05 13:19:13",
+                "from": "lead",
+                "text": "Como eu fiz hoje cedo no aplicativo ainda não aparece a previsão de entrega dos resultados, mas qualquer novidade eu vou atualizando. 😘"
+            },
+            {
+                "timestamp": "2025-02-05 13:21:47",
+                "from": "assistente",
+                "text": "Tá joia querida, combinado 🥰"
+            },
+            {
+                "timestamp": "2025-02-07 16:52:42",
+                "from": "lead",
+                "text": "Olá Sol ☺️ tudo bem? Acabei de receber a notificação no aplicativo do plano de saúde e o último resultado que faltava já está pronto 💖😊🤩🤞 Agora já estou liberada pra fazer o retorno com a doutora Cristal."
+            },
+            {
+                "timestamp": "2025-02-07 16:58:53",
+                "from": "assistente",
+                "text": "Perfeito, Ligia!"
+            },
+            {
+                "timestamp": "2025-02-07 17:00:10",
+                "from": "assistente",
+                "text": "Ligia, vc poderia na próxima terça as 16h?"
+            },
+            {
+                "timestamp": "2025-02-10 09:13:14",
+                "from": "lead",
+                "text": "Oi Sol ☺️ bom dia. Eu não consegui ver sua mensagem a tempo na sexta 🫣 desculpa responder só agora, mas o horário de 16:00 na terça pode ser sim, caso ainda esteja disponível."
+            },
+            {
+                "timestamp": "2025-02-10 09:16:27",
+                "from": "assistente",
+                "text": "Bom dia Ligia!! Tudo bem? Sim, deixei reservado para você 🤗"
+            },
+            {
+                "timestamp": "2025-02-10 09:17:02",
+                "from": "assistente",
+                "text": "Já te passo essas informações, mas pode encaminhar os exames para o email da Dra: endocrino@dracristal.com.br"
+            },
+            {
+                "timestamp": "2025-02-11 10:01:15",
+                "from": "lead",
+                "text": "Bom dia Sol, tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-11 10:01:36",
+                "from": "lead",
+                "text": "Mais tarde, para a consulta, vc me encaminha um link?"
+            },
+            {
+                "timestamp": "2025-02-11 10:09:17",
+                "from": "lead",
+                "text": "Vi que deu erro no primeiro envio por conta do tamanho dos arquivos. Já refiz usando um link do Google Drive ok"
+            },
+            {
+                "timestamp": "2025-02-11 10:13:11",
+                "from": "lead",
+                "text": "Sol deu erro de novo😬, agora no endereço do e-mail. Vou te encaminhar o link do Drive por aqui ok, qualquer coisa vc me chama 😉"
+            },
+            {
+                "timestamp": "2025-02-11 10:13:17",
+                "from": "lead",
+                "text": "https://drive.google.com/drive/folders/1wmwzul79Vcw0r6bHOL0CcgNdGDNuU1Pq?usp=sharing"
+            },
+            {
+                "timestamp": "2025-02-11 10:27:56",
+                "from": "assistente",
+                "text": "Sol: Olá Lígia, bom dia! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-11 18:23:53",
+                "from": "assistente",
+                "text": "https://assistant.memed.com.br/p/h2rYax?utm_source=copylink"
+            },
+            {
+                "timestamp": "2025-02-11 18:24:03",
+                "from": "assistente",
+                "text": "Ligia, suas receitas! 😊"
+            },
+            {
+                "timestamp": "2025-02-11 18:37:53",
+                "from": "lead",
+                "text": "A única coisa é que o plano de saúde exige que os pedidos de exames estejam com a data 🫠😮‍💨"
+            },
+            {
+                "timestamp": "2025-02-11 18:37:54",
+                "from": "assistente",
+                "text": "Obrigada por sua mensagem, você será respondido(a) o mais breve possível."
+            },
+            {
+                "timestamp": "2025-02-11 18:39:38",
+                "from": "assistente",
+                "text": "Sem problemas, Ligia!!!"
+            },
+            {
+                "timestamp": "2025-02-11 18:41:57",
+                "from": "assistente",
+                "text": "https://assistant.memed.com.br/p/PUnU2n?utm_source=copylink"
+            },
+            {
+                "timestamp": "2025-02-13 11:14:23",
+                "from": "lead",
+                "text": "Oi Sol ☺️ bom dia querida. Tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-13 11:31:43",
+                "from": "lead",
+                "text": "Sol acho que vou preferir fazer a infusão de Ferro e as aplicações das vitaminas aí na clínica mesmo. Vc poderia me dizer quando seria possível e os valores certinho, por favor?"
+            },
+            {
+                "timestamp": "2025-02-13 11:32:48",
+                "from": "assistente",
+                "text": "Sol: Oi Lígia, bom diaa! 🌹"
+            },
+            {
+                "timestamp": "2025-02-13 11:33:10",
+                "from": "assistente",
+                "text": "Pode deixar que vejo com a Dra. te falo certinho tá 😉"
+            },
+            {
+                "timestamp": "2025-02-13 11:38:24",
+                "from": "lead",
+                "text": "ok"
+            },
+            {
+                "timestamp": "2025-02-13 13:59:14",
+                "from": "assistente",
+                "text": "Amore... vamos lá..."
+            },
+            {
+                "timestamp": "2025-02-13 14:01:49",
+                "from": "lead",
+                "text": "Maravilha Sol, então já pode agendar pra mim no sábado por favor, se puder ser na parte da manhã seria melhor pra mim."
+            },
+            {
+                "timestamp": "2025-02-13 14:02:13",
+                "from": "lead",
+                "text": "Vc tem as indicações da Dra Cristal para a infusão de ferro?"
+            },
+            {
+                "timestamp": "2025-02-13 14:03:07",
+                "from": "lead",
+                "text": "Eu tentei naquele laboratório A+ e eles não tem a vitamina na composição/dosagem que ela solicitou. 😥"
+            },
+            {
+                "timestamp": "2025-02-13 14:05:16",
+                "from": "lead",
+                "text": "Vou te encaminhar 3 prints com a conversa que tive com o laboratório da A+ 👇"
+            }
+        ]
+    },
+    {
+        "label": "nao_agendou",
+        "lead_id": "+55 11 95349-0366",
+        "mensagens": [
+            {
+                "timestamp": "2025-02-10 22:21:22",
+                "from": "lead",
+                "text": "‎As mensagens e as ligações são protegidas com a criptografia de ponta a ponta e ficam somente entre você e os participantes desta conversa. Nem mesmo o WhatsApp pode lê-las ou ouvi-las."
+            },
+            {
+                "timestamp": "2025-02-10 22:21:22",
+                "from": "lead",
+                "text": ""
+            },
+            {
+                "timestamp": "2025-02-10 22:21:22",
+                "from": "lead",
+                "text": "‎~Pat  Varago respondeu ao seu anúncio no ‎Facebook."
+            },
+            {
+                "timestamp": "2025-02-10 22:20:29",
+                "from": "lead",
+                "text": "Olá! Vi a Dra. Cristal no Instagram e quero agendar uma consulta."
+            },
+            {
+                "timestamp": "2025-02-10 22:20:32",
+                "from": "assistente",
+                "text": "Olááá! Prazer, me chamo Sol. Fico feliz em te acompanhar durante o processo de atendimento no consultório da Dra. Cristal!"
+            },
+            {
+                "timestamp": "2025-02-10 22:20:32",
+                "from": "assistente",
+                "text": "Obrigada por sua mensagem, você será respondido(a) o mais breve possível."
+            },
+            {
+                "timestamp": "2025-02-11 11:39:33",
+                "from": "assistente",
+                "text": "Sol: Olá, bom dia! Com quem falo, por favor?"
+            },
+            {
+                "timestamp": "2025-02-11 11:46:30",
+                "from": "lead",
+                "text": "Bom dia"
+            },
+            {
+                "timestamp": "2025-02-11 11:46:34",
+                "from": "lead",
+                "text": "Quero emagrecer"
+            },
+            {
+                "timestamp": "2025-02-11 11:56:09",
+                "from": "assistente",
+                "text": "Certo. Qual seu nome, por favor?"
+            },
+            {
+                "timestamp": "2025-02-11 12:12:58",
+                "from": "lead",
+                "text": "Patrícia"
+            },
+            {
+                "timestamp": "2025-02-11 12:14:23",
+                "from": "assistente",
+                "text": "Seja bem vinda, Patrícia! 💐"
+            },
+            {
+                "timestamp": "2025-02-11 12:15:00",
+                "from": "lead",
+                "text": "Sim! Muitos! Inclusive sou pós Bariatrica"
+            },
+            {
+                "timestamp": "2025-02-11 12:15:30",
+                "from": "lead",
+                "text": "É não emagreci tudo o que eu esperava"
+            },
+            {
+                "timestamp": "2025-02-11 12:16:47",
+                "from": "assistente",
+                "text": "Ahhh entendi! então vc chegou ao lugar certo Patrícia 🫶"
+            },
+            {
+                "timestamp": "2025-02-11 12:17:07",
+                "from": "lead",
+                "text": "Ok"
+            },
+            {
+                "timestamp": "2025-02-11 12:29:30",
+                "from": "assistente",
+                "text": "Funciona assim, Patrícia: na primeira consulta, a Dra. Cristal se dedica a compreender minuciosamente as suas necessidades de forma personalizada, por isso será importante ela conhecer a sua história de saúde, seus hábitos, os sintomas que estão te incomodando e suas necessidades atuais. Se você tiver exames dos últimos 6 meses, será importante levá-los."
+            },
+            {
+                "timestamp": "2025-02-11 12:30:28",
+                "from": "assistente",
+                "text": "A Dra. avalia 4 grandes pilares que estão relacionados ao emagrecimento e o seu sistema como um todo, o físico, emocional, hábitos de vida e relacionamentos. Com isso, a Dra. Cristal ela vai traçar junto com você uma estratégia de tratamento que faça sentido para suas necessidades."
+            },
+            {
+                "timestamp": "2025-02-11 12:31:25",
+                "from": "lead",
+                "text": "Certo"
+            },
+            {
+                "timestamp": "2025-02-11 12:31:49",
+                "from": "assistente",
+                "text": "Caso você não tenha exames dos últimos 6 meses, a Dra. pode realizar uma pré-consulta online em que vcs conversam rapidamente sobre suas necessidades e ela solicita os exames para você levar no dia da consulta."
+            },
+            {
+                "timestamp": "2025-02-11 12:32:18",
+                "from": "assistente",
+                "text": "Até aqui, alguma dúvida, Patrícia?"
+            },
+            {
+                "timestamp": "2025-02-11 12:42:18",
+                "from": "lead",
+                "text": "Não! Tranquilo"
+            },
+            {
+                "timestamp": "2025-02-11 14:43:56",
+                "from": "assistente",
+                "text": "Que ótimo Patrícia 😊"
+            }
+        ]
+    },
+    {
+        "label": "nao_agendou",
+        "lead_id": "+55 11 97194-0339",
+        "mensagens": [
+            {
+                "timestamp": "2024-07-24 12:14:52",
+                "from": "lead",
+                "text": "‎As mensagens e as ligações são protegidas com a criptografia de ponta a ponta e ficam somente entre você e os participantes desta conversa. Nem mesmo o WhatsApp pode lê-las ou ouvi-las."
+            },
+            {
+                "timestamp": "2024-07-24 12:14:52",
+                "from": "lead",
+                "text": ""
+            },
+            {
+                "timestamp": "2024-07-24 10:08:29",
+                "from": "lead",
+                "text": "Olá, Gostaria de saber mais sobre as consultas da Dra Cristal Cabral."
+            },
+            {
+                "timestamp": "2024-07-24 10:08:33",
+                "from": "assistente",
+                "text": "Olá, aqui é a Aline, assistente da Dra. Cristal! Seja muito bem-vindo(a)!! Como posso te chamar? ☺️"
+            },
+            {
+                "timestamp": "2024-07-24 10:08:39",
+                "from": "lead",
+                "text": "Rebeca"
+            },
+            {
+                "timestamp": "2024-07-24 10:08:44",
+                "from": "lead",
+                "text": "Bom dia"
+            },
+            {
+                "timestamp": "2024-07-24 10:18:10",
+                "from": "assistente",
+                "text": "Bom dia Rebeca! Seja muito bem-vinda! 🤗"
+            },
+            {
+                "timestamp": "2024-07-24 10:19:05",
+                "from": "lead",
+                "text": "Gostaria de verificar questões hormonais"
+            },
+            {
+                "timestamp": "2024-07-24 10:35:42",
+                "from": "assistente",
+                "text": "Perfeito Rebeca, saiba que a Dra. Cristal e sua equipe são endocrinologistas especialistas nesse assunto tem ajudado inúmeras pacientes com queixas semelhantes às suas a melhorar os sintomas e com certeza poderá também te ajudar ☺️"
+            },
+            {
+                "timestamp": "2024-07-24 10:36:30",
+                "from": "assistente",
+                "text": "Funciona assim, na primeira consulta, a Dra. se dedica a compreender minuciosamente as suas necessidades de forma personalizada, então por isso será importante ela conhecer a sua história de saúde, seus hábitos, os sintomas que estão te incomodando e suas necessidades atuais.."
+            },
+            {
+                "timestamp": "2024-07-24 11:40:23",
+                "from": "assistente",
+                "text": "Ficou com alguma dúvida Rebeca?"
+            },
+            {
+                "timestamp": "2024-07-24 12:14:46",
+                "from": "lead",
+                "text": "Muito obrigada pelas informações"
+            },
+            {
+                "timestamp": "2024-07-24 12:14:53",
+                "from": "lead",
+                "text": "Qual o valor da consulta por gentileza?"
+            },
+            {
+                "timestamp": "2024-07-24 12:17:12",
+                "from": "assistente",
+                "text": "Rebeca, essa consulta pode ser presencial ou online e tem o valor de 650 reais. O pagamento pode ser por PIX ou cartão de crédito/débito e fornecemos a nota fiscal para reembolso e/ou declaração de IR, se for o caso."
+            },
+            {
+                "timestamp": "2024-07-24 16:35:41",
+                "from": "assistente",
+                "text": "Gostaria de agendar Rebeca?"
+            },
+            {
+                "timestamp": "2025-01-23 16:50:20",
+                "from": "lead",
+                "text": "Olá, boa tarde"
+            },
+            {
+                "timestamp": "2025-01-23 16:50:22",
+                "from": "assistente",
+                "text": "Olááá! Prazer, me chamo Sol. Fico feliz em te acompanhar durante o processo de atendimento no consultório da Dra. Cristal!"
+            },
+            {
+                "timestamp": "2025-01-23 16:50:22",
+                "from": "lead",
+                "text": "Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-23 16:52:35",
+                "from": "assistente",
+                "text": "Sol: Boa tarde, Rebeca! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-01-23 16:52:58",
+                "from": "lead",
+                "text": "Tudo bem"
+            },
+            {
+                "timestamp": "2025-01-23 16:53:07",
+                "from": "lead",
+                "text": "Gostaria de agendar uma consulta"
+            },
+            {
+                "timestamp": "2025-01-23 16:53:39",
+                "from": "assistente",
+                "text": "Claro Rebeca, seria sua primeira vez com a Dra. Cristal, não é?"
+            },
+            {
+                "timestamp": "2025-01-23 16:58:37",
+                "from": "lead",
+                "text": "Sim, primeira vez"
+            },
+            {
+                "timestamp": "2025-01-23 16:59:14",
+                "from": "assistente",
+                "text": "Show! E pra você funciona melhor a consulta online ou presencial, Rebeca?"
+            },
+            {
+                "timestamp": "2025-01-23 19:20:53",
+                "from": "lead",
+                "text": "Pode ser on-line"
+            },
+            {
+                "timestamp": "2025-01-23 19:20:54",
+                "from": "assistente",
+                "text": "Obrigada por sua mensagem, você será respondido(a) o mais breve possível."
+            },
+            {
+                "timestamp": "2025-01-23 19:20:59",
+                "from": "lead",
+                "text": "Por favor"
+            },
+            {
+                "timestamp": "2025-01-24 09:14:11",
+                "from": "assistente",
+                "text": "Sol: Olá Rebeca, bom dia! Tudo bem? 😊"
+            },
+            {
+                "timestamp": "2025-02-03 14:51:23",
+                "from": "assistente",
+                "text": "Sol: Boa tarde Rebeca! Tudo bem? 🌻"
+            },
+            {
+                "timestamp": "2025-02-04 09:44:01",
+                "from": "lead",
+                "text": "Olá, bom dia"
+            },
+            {
+                "timestamp": "2025-02-04 09:44:06",
+                "from": "lead",
+                "text": "Sim, gostaria de agendar"
+            },
+            {
+                "timestamp": "2025-02-04 10:10:11",
+                "from": "assistente",
+                "text": "Sol: Bom dia Rebeca, tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-10 11:01:43",
+                "from": "lead",
+                "text": "Olá, bom dia"
+            },
+            {
+                "timestamp": "2025-02-10 11:01:59",
+                "from": "lead",
+                "text": "Tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-10 11:02:02",
+                "from": "lead",
+                "text": "Me desculpe"
+            },
+            {
+                "timestamp": "2025-02-10 11:02:16",
+                "from": "lead",
+                "text": "Gostaria ainda de agendar com a Dra se possível"
+            },
+            {
+                "timestamp": "2025-02-10 11:03:54",
+                "from": "assistente",
+                "text": "Sol: Olá Rebeca, bom dia! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-10 12:26:47",
+                "from": "lead",
+                "text": "On-line ou presencial"
+            },
+            {
+                "timestamp": "2025-02-10 12:26:53",
+                "from": "lead",
+                "text": "Qual tiver disponibilidade mais próxima"
+            },
+            {
+                "timestamp": "2025-02-10 14:09:59",
+                "from": "assistente",
+                "text": "Tenho um horário presencial excepcional disponível amanhã, 11/02 às 16:00h. Pode ser Rebeca?"
+            },
+            {
+                "timestamp": "2025-02-10 14:35:36",
+                "from": "lead",
+                "text": "Pode sim"
+            },
+            {
+                "timestamp": "2025-02-10 14:35:38",
+                "from": "lead",
+                "text": "Por favor"
+            },
+            {
+                "timestamp": "2025-02-10 14:38:30",
+                "from": "assistente",
+                "text": "Ah legal Rebeca 👏"
+            },
+            {
+                "timestamp": "2025-02-10 16:04:37",
+                "from": "assistente",
+                "text": "Rebeca, vc confirma o seu agendamento para amanhã?"
+            },
+            {
+                "timestamp": "2025-02-10 17:39:25",
+                "from": "lead",
+                "text": "Sim"
+            },
+            {
+                "timestamp": "2025-02-10 17:39:31",
+                "from": "lead",
+                "text": "Vou passar os dados"
+            },
+            {
+                "timestamp": "2025-02-10 17:40:07",
+                "from": "lead",
+                "text": "‎Mensagem apagada"
+            },
+            {
+                "timestamp": "2025-02-10 17:41:54",
+                "from": "lead",
+                "text": "Nome completo: Rebeca Da Silva Ribeiro"
+            },
+            {
+                "timestamp": "2025-02-10 17:49:57",
+                "from": "assistente",
+                "text": "Marcadinho Rebeca 🌹"
+            },
+            {
+                "timestamp": "2025-02-10 17:50:12",
+                "from": "assistente",
+                "text": "Qual será sua forma de pagamento, Rebeca?"
+            },
+            {
+                "timestamp": "2025-02-11 09:25:03",
+                "from": "assistente",
+                "text": "Sol: Olá Rebeca, bom dia! Tudo bem?"
+            },
+            {
+                "timestamp": "2025-02-11 10:23:02",
+                "from": "assistente",
+                "text": "Rebeca, se puder me confirmar ainda pela manhã, agradeço, pois caso não confirme tenho paciente aguardando pelo horário."
+            },
+            {
+                "timestamp": "2025-02-11 10:23:42",
+                "from": "lead",
+                "text": "Olá, bom dia"
+            },
+            {
+                "timestamp": "2025-02-11 10:23:46",
+                "from": "lead",
+                "text": "Me desculpe pela demora"
+            },
+            {
+                "timestamp": "2025-02-11 10:23:54",
+                "from": "lead",
+                "text": "Me perdoe porém não poderei comparecer"
+            },
+            {
+                "timestamp": "2025-02-11 10:41:14",
+                "from": "assistente",
+                "text": "Ok. Gostaria de reagendar, Rebeca?"
+            }
+        ]
+    }
+]

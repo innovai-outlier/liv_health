@@ -1,0 +1,204 @@
+{
+    "data": "2025-02-26",
+    "total_conversas": 15,
+    "agendamentos_realizados": 0,
+    "cancelamentos_consultas": 0,
+    "pendencias_ao_medico": 0,
+    "detalhes": [
+        {
+            "lead_id": "# Fer",
+            "label_count": {
+                "nao_agendou": 81,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "# Gabi Guedes",
+            "label_count": {
+                "nao_agendou": 141,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "# Marycel E B Cotrim",
+            "label_count": {
+                "nao_agendou": 74,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 98115-4756",
+            "label_count": {
+                "nao_agendou": 32,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 98207-9949",
+            "label_count": {
+                "nao_agendou": 22,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 99771-5208",
+            "label_count": {
+                "nao_agendou": 57,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 19 99226-0005",
+            "label_count": {
+                "nao_agendou": 55,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 95349-0366",
+            "label_count": {
+                "nao_agendou": 11,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 97050-3327",
+            "label_count": {
+                "nao_agendou": 2,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 97194-0339",
+            "label_count": {
+                "nao_agendou": 24,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 97628-8462",
+            "label_count": {
+                "nao_agendou": 9,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 97995-8899",
+            "label_count": {
+                "nao_agendou": 10,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 98569-0900",
+            "label_count": {
+                "nao_agendou": 8,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 98799-1370",
+            "label_count": {
+                "nao_agendou": 12,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        },
+        {
+            "lead_id": "+55 11 98918-0100",
+            "label_count": {
+                "nao_agendou": 14,
+                "agendou": 0,
+                "cancelou": 0,
+                "pendencia": 0
+            },
+            "pendencias_detectadas": 0,
+            "pendencias_resolvidas": 0,
+            "final_label": "nao_agendou",
+            "has_pendencia": false
+        }
+    ]
+}

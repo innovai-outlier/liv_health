@@ -1,7 +1,7 @@
 import json
 import os
 from src.reports.embedding_extractor import EmbeddingExtractor
-from src.reports.keyword_utils import load_keywords, save_keywords
+from src.reports.keyword_utils import load_keywords_db, save_keywords_db
 
 FEEDBACK_FILE = "output/feedback.json"
 KEYWORDS_DB = "src/reports/keywords_db.json"
@@ -19,7 +19,7 @@ def aplicar_feedback():
     print("\n📊 Aplicando feedback...")
 
     # 1️⃣ Atualizar palavras-chave e sinônimos
-    keywords = load_keywords(KEYWORDS_DB)
+    keywords = load_keywords_db(KEYWORDS_DB)
 
     for correcao in feedback["correcoes_metricas"]:
         lead_id = correcao["lead_id"]
@@ -30,7 +30,7 @@ def aplicar_feedback():
         if correcao["correcao_pendencias"] > correcao["pendencias_detectadas"]:
             keywords["pendencia"].append(f"Correção de {lead_id}")
 
-    save_keywords(KEYWORDS_DB, keywords)
+    save_keywords_db(KEYWORDS_DB, keywords)
 
     # 2️⃣ Atualizar modelo de embeddings
     print("\n🔄 Re-treinando o modelo com dados corrigidos...")

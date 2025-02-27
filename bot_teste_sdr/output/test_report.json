@@ -1,0 +1,21 @@
+{
+    "total_conversas": 4,
+    "detalhes": [
+        {
+            "lead_id": "+55 11 98115-4756",
+            "predicao": "agendou"
+        },
+        {
+            "lead_id": "+55 11 98207-9949",
+            "predicao": "nao_agendou"
+        },
+        {
+            "lead_id": "+55 11 98799-1370",
+            "predicao": "agendou"
+        },
+        {
+            "lead_id": "+55 11 98569-0900",
+            "predicao": "agendou"
+        }
+    ]
+}

@@ -1,6 +1,7 @@
 selenium
 webdriver-manager
 transformers
+huggingface_hub[cli]
 torch
 sentence-transformers
 nltk
