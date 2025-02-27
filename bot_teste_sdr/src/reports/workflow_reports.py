@@ -41,7 +41,8 @@ def generate_report(base_type="test", use_generative=False):
     if use_generative:
         print("🤖 Usando IA Generativa para gerar relatório...")
         model = GenerativeReportGenerator()
-        report = model.generate_report(fetcher.fetch_today_conversations())
+        conversas = model.load_conversations()
+        report = model.generate_report(conversas)
     else:
         print("🔎 Usando modelo de embeddings...")
         extractor = EmbeddingExtractor()

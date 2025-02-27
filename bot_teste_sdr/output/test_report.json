@@ -1,21 +1,4 @@
 {
-    "total_conversas": 4,
-    "detalhes": [
-        {
-            "lead_id": "+55 11 98115-4756",
-            "predicao": "agendou"
-        },
-        {
-            "lead_id": "+55 11 98207-9949",
-            "predicao": "nao_agendou"
-        },
-        {
-            "lead_id": "+55 11 98799-1370",
-            "predicao": "agendou"
-        },
-        {
-            "lead_id": "+55 11 98569-0900",
-            "predicao": "agendou"
-        }
-    ]
+    "gerado_por": "IA Generativa",
+    "resumo": "[INST] Você é um assistente que gera relatórios médicos baseados em interações entre pacientes e assistentes.\nLeia atentamente as interações e gere um resumo diário estruturado contendo:\n- Quantidade de agendamentos\n- Cancelamentos\n- Pendências ao médico\nConsidere todas as interações abaixo para compilar seu relatório.\n\nBom dia! [/INST] Imagine Fernando, seja muito bem vindo! 🍀 [INST] Não ficou dúvida não. [/INST] Que ótimo Fernando 😊 [INST] Acredito que seria no presencial mesmo, por conta da bioimpedância. [/INST] Ahh legal. Ela atende presencialmente às terças a tarde ou quintas de manhã. [INST] Na terça eu trabalho home office e na quinta de forma presencial. [/INST] E tipo no horário de almoço, conseguiria Fernando? [INST] Atualmente moro em Guarulhos e é um pouco distante. [/INST] Podemos tentar agendar então presencialmente na quinta, 09/01 às 12:30h, assim vc já realiza também a bioimpedância. [INST] Eu ainda estarei fora. [/INST] Ahh entendi. Se quiser podemos deixar então para o dia 23/01 às 12:30h... pode ser? [INST] Pode sim. [/INST] Joia então Fernando, vamos nos falando... [INST] Nome completo: Fernando da Costa Felício [/INST] Marcadinho Fernando 😉 [INST] Obrigado. [/INST] Obrigada, pra vc também Fernando! [INST] Com base nessas interações, gere um resumo detalhado das métricas citadas acima. [/INST] Relatório Diário de Atendimentos - 15/01/2023\n\n--------------------------------------------------\n\nQuantidade de Agendamentos:\n-------------------------\n\n* 1 agendamento presencial para Fernando da Costa Felício, no dia 23/01/2023, às 12:30h.\n\nCancelamentos:\n-------------\n\n* Nenhum cancelamento registrado.\n\nPendências ao Médico:\n----------------------\n\n* Nenhuma pendência registrada.\n\n--------------------------------------------------\n\nTotal de Agendamentos: 1\nTotal de Cancelamentos: 0\nTotal de Pendências: 0\n\n--------------------------------------------------"
 }
