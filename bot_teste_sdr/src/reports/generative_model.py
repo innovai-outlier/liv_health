@@ -21,7 +21,7 @@ class GenerativeReportGenerator:
             low_cpu_mem_usage=True
         )
 
-    def load_conversations(self, base_dir="database/test", target_date="2025-01-02"):
+    def load_conversations(self, base_dir="database/test", target_date="2025-01-02", assistente=None):
         """
         Carrega conversas de um dia específico dentro do diretório da base (train, test ou validate).
         Retorna apenas conversas onde há pelo menos uma mensagem registrada na data desejada.

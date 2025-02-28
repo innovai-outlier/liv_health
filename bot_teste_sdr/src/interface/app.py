@@ -1,7 +1,10 @@
 import streamlit as st
 from auth import login_user
-from dashboard import show_dashboard
-
+#from dashboard import show_dashboard
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from src.interface.dashboard import show_dashboard
 
 # Tela de login
 login_user()

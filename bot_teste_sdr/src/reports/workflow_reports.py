@@ -32,7 +32,7 @@ def train_model():
     extractor.save_classifier()
     print(f"✅ Modelo treinado e salvo em {extractor.model_store}")
 
-def generate_report(base_type="test", use_generative=False, target_date=None):
+def generate_report(base_type="test", use_generative=True, target_date=None, assistente=None):
     """ Gera relatórios usando embeddings ou IA Generativa na base correta """
     print(f"📊 Gerando relatório para `{base_type}`...")
 
@@ -48,8 +48,11 @@ def generate_report(base_type="test", use_generative=False, target_date=None):
         extractor = EmbeddingExtractor()
         report_generator = DailyReport(fetcher=fetcher, model_store=extractor.model_store)
         report = report_generator.generate_report()
-
-    output_path = f"output/{base_type}_report.json"
+    if (assistente == None):
+        output_path = f"output/{base_type}_report.json"
+    else:
+        output_path = f"output/{assistente}_{target_date}_report.json"
+        
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=4, ensure_ascii=False)
 

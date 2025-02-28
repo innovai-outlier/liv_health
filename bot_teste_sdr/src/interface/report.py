@@ -1,11 +1,13 @@
 import streamlit as st
 import json
-import os
+import os, sys
 from datetime import datetime
 from utils import carregar_json
 
-# Caminho do relatório
-REPORT_FILE = os.path.join(os.path.dirname(__file__), "..", "reports", "output", "daily_report.json")
+# 🔹 Adiciona "src" ao caminho de pacotes
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+# Agora importe o módulo corretamente
+import src.reports.workflow_reports as wfr
 
 def show_report():
     """ Exibe a tela do relatório diário """
@@ -18,11 +20,13 @@ def show_report():
         categoria = st.selectbox("Categoria", ["Humana", "IA"])
         numero_wab = st.text_input("Número do WhatsApp Business", "+55 11 99999-9999")
         data_analise = st.date_input("Data da Análise", datetime.today())
-
+        REPORT_FILENAME = f"output/{assistente_nome}_{data_analise}_report.json"
         submit_button = st.form_submit_button("🔍 Gerar Relatório")
 
     if submit_button:
-        relatorio = carregar_json(REPORT_FILE)
+        REPORT_DIR = os.path.join(os.path.dirname(__file__), "..", "output", REPORT_FILENAME)
+        wfr.generate_report(target_date=data_analise)
+        relatorio = carregar_json(REPORT_DIR)
         
         if not relatorio:
             st.error("⚠️ Nenhum relatório encontrado. Execute a geração primeiro.")

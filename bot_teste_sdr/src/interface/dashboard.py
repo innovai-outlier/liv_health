@@ -1,7 +1,7 @@
 import streamlit as st
-from report import show_report
-from audit import show_audit
-from assistants import show_assistants
+from .report import show_report
+from .audit import show_audit
+from .assistants import show_assistants
 
 def show_dashboard():
     """ Exibe o painel principal com barra lateral de navegação """
