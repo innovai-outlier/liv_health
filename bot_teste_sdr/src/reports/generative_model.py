@@ -72,10 +72,22 @@ class GenerativeReportGenerator:
 
         messages = [{"role": "system", "content": 
             "Você é um assistente que gera relatórios médicos baseados em interações entre pacientes e assistentes.\n"
-            "Leia atentamente as interações e gere um resumo diário estruturado contendo:\n"
+            "Leia atentamente as interações e gere um resumo diário estruturado dividido em duas partes:\n"
+            "Parte 1: Resumo Analítico. Nessa parte você irá apenas contar a ocorrências."
             "- Quantidade de agendamentos\n"
+            "- Origem do atendimento/Google\n"
+            "- Origem do atendimento/Instagram\n"
+            "- Origem do atendimento/Indicação\n"
+            "- Origem do atendimento/Já é paciente\n"
             "- Cancelamentos\n"
+            "- Reagendamentos\n"
+            "- Conversas em aberto (Assistente não respondeu)\n"
+            "- Conversas em aberto (Lead não respondeu)\n"
             "- Pendências ao médico\n"
+            "Parte 2: Resumo Detalhado. Aqui você irá detalhar mais sobre certas ocorrências listadas acima:\n"
+            "- Motivos do cancelamento\n"
+            "- Motivos do reagendamento\n"
+            "- Pendências: Nessa ocorrência, relacionar o id do lead (número de telefone) com qual a sua pendência\n"
             "Considere todas as interações abaixo para compilar seu relatório."
         }]
 

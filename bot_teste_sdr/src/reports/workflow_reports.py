@@ -1,7 +1,7 @@
 import os
 import json
 import argparse
-from src.reports.daily_report import DailyReport
+#from src.reports.daily_report import DailyReport
 from src.reports.generative_model import GenerativeReportGenerator
 from src.reports.fetcher_base import LocalFileFetcher
 from src.reports.apply_feedback import aplicar_feedback
@@ -32,7 +32,7 @@ def train_model():
     extractor.save_classifier()
     print(f"✅ Modelo treinado e salvo em {extractor.model_store}")
 
-def generate_report(base_type="test", use_generative=False):
+def generate_report(base_type="test", use_generative=False, target_date=None):
     """ Gera relatórios usando embeddings ou IA Generativa na base correta """
     print(f"📊 Gerando relatório para `{base_type}`...")
 

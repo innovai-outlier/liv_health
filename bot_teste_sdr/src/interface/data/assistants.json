@@ -1,0 +1,18 @@
+[
+    {
+        "id": "asst_001",
+        "nome": "Dra Cristal Endocrinologista",
+        "categoria": "Humana",
+        "numero_wab": "+55 11 94488-5013",
+        "data_criacao": "2025-02-27",
+        "ativa": true
+    },
+    {
+        "id": "asst_002",
+        "nome": "Ingrid Aline | Atendimento",
+        "categoria": "IA",
+        "numero_wab": "+55 14 99885-6221",
+        "data_criacao": "2025-02-27",
+        "ativa": false
+    }
+]
