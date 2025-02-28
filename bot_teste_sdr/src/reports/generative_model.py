@@ -68,46 +68,59 @@ class GenerativeReportGenerator:
         return all_conversations
 
     def format_prompt(self, conversations):
-        """ Formata as conversas para serem interpretadas corretamente pelo modelo """
+        """ Formata as conversas em partes menores e alternadas corretamente entre user e assistant """
 
         messages = [{"role": "system", "content": 
             "Você é um assistente que gera relatórios médicos baseados em interações entre pacientes e assistentes.\n"
-            "Leia atentamente as interações e gere um resumo diário estruturado dividido em duas partes:\n"
-            "Parte 1: Resumo Analítico. Nessa parte você irá apenas contar a ocorrências."
+            "Vamos gerar um relatório estruturado com base nas interações fornecidas.\n"
+        }]
+
+        last_role = "assistant"  # Para garantir alternância correta
+
+        # 🔹 Processa as conversas e alterna corretamente entre user e assistant
+        for conv in conversations:
+            for msg in conv["mensagens"]:
+                role = "user" if msg["from"] == "lead" else "assistant"
+
+                # 🔄 Garante alternância correta
+                if role == last_role:
+                    continue  
+
+                messages.append({"role": role, "content": msg["text"]})
+                last_role = role  # Atualiza último papel
+
+        # 🔹 Alternância garantida nas partes do relatório
+
+        # 🟢 Parte 1: Solicitação do Resumo Analítico
+        messages.append({"role": "user", "content":
+            "Agora gere o **Resumo Analítico**, listando apenas as ocorrências abaixo:\n"
             "- Quantidade de agendamentos\n"
-            "- Origem do atendimento/Google\n"
-            "- Origem do atendimento/Instagram\n"
-            "- Origem do atendimento/Indicação\n"
-            "- Origem do atendimento/Já é paciente\n"
+            "- Origem do atendimento: Google, Instagram, Indicação, Já é paciente\n"
             "- Cancelamentos\n"
             "- Reagendamentos\n"
             "- Conversas em aberto (Assistente não respondeu)\n"
             "- Conversas em aberto (Lead não respondeu)\n"
             "- Pendências ao médico\n"
-            "Parte 2: Resumo Detalhado. Aqui você irá detalhar mais sobre certas ocorrências listadas acima:\n"
+        })
+        messages.append({"role": "assistant", "content": "Gerando o Resumo Analítico com base nos dados recebidos..."})
+
+        # 🔵 Parte 2: Solicitação do Resumo Detalhado
+        messages.append({"role": "user", "content":
+            "Agora gere o **Resumo Detalhado**, explicando os seguintes pontos:\n"
             "- Motivos do cancelamento\n"
             "- Motivos do reagendamento\n"
-            "- Pendências: Nessa ocorrência, relacionar o id do lead (número de telefone) com qual a sua pendência\n"
-            "Considere todas as interações abaixo para compilar seu relatório."
-        }]
+        })
+        messages.append({"role": "assistant", "content": "Gerando o Resumo Detalhado, analisando os motivos mencionados..."})
 
-        last_role = "assistant"  # Garante que alternamos corretamente
-
-        for conv in conversations:
-            for msg in conv["mensagens"]:
-                role = "user" if msg["from"] == "lead" else "assistant"
-
-                # 🚀 Garante que sempre alternamos entre "user" e "assistant"
-                if role == last_role:
-                    continue  # Se for duplicado, pula
-
-                messages.append({"role": role, "content": msg["text"]})
-                last_role = role  # Atualiza o último papel
-
-        # Instrução final para gerar o resumo
-        messages.append({"role": "user", "content": "Com base nessas interações, gere um resumo detalhado das métricas citadas acima."})
+        # 🔴 Parte 3: Solicitação das Pendências ao Médico
+        messages.append({"role": "user", "content":
+            "Por fim, relacione as pendências ao médico, incluindo o **ID do lead (número de telefone)** e sua pendência específica.\n"
+            "Considere todas as interações fornecidas."
+        })
+        #messages.append({"role": "assistant", "content": "Listando todas as pendências ao médico identificadas..."})
 
         return messages
+
 
     def generate_report(self, conversations, max_tokens=512):
         """ Gera um relatório diário baseado na IA generativa """
@@ -117,13 +130,14 @@ class GenerativeReportGenerator:
 
         # Formata o prompt corretamente
         messages = self.format_prompt(conversations)
+        
+        # Definir manualmente o token de padding
+        self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id or self.tokenizer.pad_token_id
 
         # Aplica o template de chat para tokenização correta
-        model_inputs = self.tokenizer.apply_chat_template(messages, return_tensors="pt", padding=True).to(self.device)
-
-        # Definir manualmente o token de padding
-        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-
+        model_inputs = self.tokenizer.apply_chat_template(messages, return_tensors="pt", padding=True).to(self.device)    
+        
         # Criar a máscara de atenção
         attention_mask = model_inputs.ne(self.tokenizer.pad_token_id).long()
 
