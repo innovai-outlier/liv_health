@@ -16,3 +16,4 @@ numpy
 requests
 streamlit
 streamlit-authenticator
+streamlit-option-menu

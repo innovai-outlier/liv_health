@@ -4,7 +4,7 @@ import os
 from utils import carregar_json
 
 # Caminho da base de assistentes (simulada)
-ASSISTANTS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "assistants.json")
+ASSISTANTS_FILE = os.path.join(os.path.dirname(__file__), "data", "assistants.json")
 
 def carregar_assistentes():
     """ Carrega lista de assistentes disponíveis """
