@@ -1,6 +1,7 @@
 selenium
 webdriver-manager
 transformers
+huggingface_hub[cli]
 torch
 sentence-transformers
 nltk
@@ -13,3 +14,6 @@ langchain
 scikit-learn
 numpy
 requests
+streamlit
+streamlit-authenticator
+streamlit-option-menu

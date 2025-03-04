@@ -5,6 +5,8 @@ import re
 import glob
 from datetime import datetime
 
+OUTPUT_FILE = "output/parsed_conversations.json"
+
 def parse_line(line):
     """
     Formato: [DD/MM/YYYY, HH:MM:SS] Nome: Mensagem
@@ -92,6 +94,10 @@ def load_labeled_history(base_dir="assets/chatbase"):
 
     return all_conversations
 
-
+def export_parsed_conversations(conversations):
+        """ Exporta as conversas formatadas para um JSON para análise. """
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(conversations, f, indent=4, ensure_ascii=False)
+        print(f"✅ Conversas formatadas salvas em {OUTPUT_FILE}")
 #Para teste rápido apenas - comente a linha de baixo se não for testar!!!
 #print(load_labeled_history())

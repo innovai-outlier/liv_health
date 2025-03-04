@@ -1,45 +1,47 @@
-# src/reports/embedding_extractor.py
-
 import os
 import json
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from .chat_parser import load_labeled_history
-from .embedding_utils import EmbeddingsModel
+from src.reports.chat_parser import load_labeled_history
+from src.reports.embedding_utils import EmbeddingsModel
 
 class EmbeddingExtractor:
     """
-    Faz multi-class: 'nao_agendou' -> 0, 'agendou' -> 1, 'cancelou' -> 2, 'pendencia' -> 3
-    Necessita que a base histórica tenha esses rótulos.
+    Classe para treinar e usar um classificador de embeddings.
+    Pode lidar com múltiplas classes: 'agendou', 'nao_agendou', 'cancelou', 'pendencia'.
     """
-    def __init__(self, model_name="sentence-transformers/paraphrase-xlm-r-multilingual-v1"):
-        self.emb_model = EmbeddingsModel(model_name)
+
+    def __init__(self, model_store="output/model_store.json"):
+        self.model_store = model_store
+        self.emb_model = EmbeddingsModel()  # Modelo de embeddings
         self.classifier = None
-        # Quatro possíveis rótulos
-        self.labels_map = {
-            "nao_agendou": 0,
-            "agendou": 1,
-            "cancelou": 2,
-            "pendencia": 3
-        }
-        # Mapa inverso para predict
+        self.labels_map = {"nao_agendou": 0, "agendou": 1, "cancelou": 2, "pendencia": 3}
         self.inv_labels_map = {v: k for k, v in self.labels_map.items()}
 
-    def build_dataset(self, base_dir="assets/chatbase", max_samples_per_conv=2):
+    def build_dataset(self, base_type="train", max_samples_per_conv=2):
         """
-        Lê conversas e gera (embedding, label).
-        Supondo que 'label' no conv seja 'nao_agendou', 'agendou', 'cancelou', 'pendencia'
-        Caso a base só tenha 'agendou' e 'nao_agendou', não terá dados p/ 'cancelou' e 'pendencia'.
+        Lê conversas e gera (embedding, label) baseado na base escolhida.
+        - `base_type`: "train", "test" ou "validate"
+        - `max_samples_per_conv`: Máximo de mensagens de um lead por conversa a serem usadas.
         """
-        conversas = load_labeled_history(base_dir=base_dir)
+        base_dir = f"database/{base_type}"
+        file_path = os.path.join(base_dir, "conversations.json")
+
+        if not os.path.exists(file_path):
+            print(f"⚠️ ERRO: Base {base_type} não encontrada ({file_path})")
+            return np.array([]), np.array([])
+
+        # Carrega as conversas da base correta (train/test/validate)
+        with open(file_path, "r", encoding="utf-8") as f:
+            conversas = json.load(f)
+
         X, y = [], []
         for conv in conversas:
             label_str = conv["label"]
-            # Se não estiver no map, assume 'nao_agendou'
-            label = self.labels_map.get(label_str, 0)
+            label = self.labels_map.get(label_str, 0)  # Se não encontrado, assume 'nao_agendou'
+            
             msgs = conv["mensagens"]
             count = 0
-            for msg in msgs[::-1]:
+            for msg in msgs[::-1]:  # Processa mensagens do fim para o início
                 if msg["from"] == "lead":
                     emb = self.emb_model.embed_sentence(msg["text"])
                     X.append(emb)
@@ -47,45 +49,74 @@ class EmbeddingExtractor:
                     count += 1
                 if count >= max_samples_per_conv:
                     break
+
+        print(f"✅ Dataset carregado de {base_type}: {len(X)} amostras")
         return np.array(X), np.array(y)
 
     def train_classifier(self, X, y):
-        """
-        Treina logistic regression multi-class
-        """
-        self.classifier = LogisticRegression(multi_class='multinomial', solver='lbfgs')
+        """ Treina um classificador de embeddings (Logistic Regression). """
+        from sklearn.linear_model import LogisticRegression
+        self.classifier = LogisticRegression(max_iter=1000)
         self.classifier.fit(X, y)
-        score = self.classifier.score(X, y)
-        print("Score no treinamento multi-class:", score)
+        print("✅ Modelo treinado com sucesso!")
 
-    def save_classifier(self, path="model_store.json"):
+    def save_classifier(self):
+        """ Salva o modelo treinado corretamente, incluindo `classes_`. """
         if self.classifier is None:
+            print("⚠️ Nenhum modelo treinado para salvar.")
             return
-        data = {
+
+        model_data = {
             "coef_": self.classifier.coef_.tolist(),
             "intercept_": self.classifier.intercept_.tolist(),
-            "classes_": self.classifier.classes_.tolist()
+            "classes_": self.classifier.classes_.tolist()  # Salvar classes corretamente
         }
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f)
 
-    def load_classifier(self, path="model_store.json"):
-        if not os.path.exists(path):
+        with open(self.model_store, "w", encoding="utf-8") as f:
+            json.dump(model_data, f, indent=4, ensure_ascii=False)
+
+        print(f"✅ Modelo salvo em {self.model_store}")
+
+    def load_classifier(self):
+        """ Carrega um modelo salvo corretamente. """
+        if not os.path.exists(self.model_store):
+            print("⚠️ Nenhum modelo encontrado. Treine primeiro.")
             return
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        self.classifier = LogisticRegression(multi_class='multinomial', solver='lbfgs')
-        self.classifier.coef_ = np.array(data["coef_"])
-        self.classifier.intercept_ = np.array(data["intercept_"])
-        self.classifier.classes_ = np.array(data["classes_"])
-        self.classifier.n_features_in_ = len(self.classifier.coef_[0])
+
+        from sklearn.linear_model import LogisticRegression
+
+        with open(self.model_store, "r", encoding="utf-8") as f:
+            model_data = json.load(f)
+
+        self.classifier = LogisticRegression(max_iter=1000)
+        self.classifier.coef_ = np.array(model_data["coef_"])
+        self.classifier.intercept_ = np.array(model_data["intercept_"])
+        self.classifier.classes_ = np.array(model_data["classes_"])  # Restaurando as classes corretamente
+
+        print("✅ Modelo carregado com sucesso!")
+
 
     def predict_label(self, text):
         """
-        Retorna uma das 4 classes: 'nao_agendou', 'agendou', 'cancelou', 'pendencia'
+        Retorna uma das classes: 'nao_agendou', 'agendou', 'cancelou', 'pendencia'.
         """
         if self.classifier is None:
-            return None
+            print("⚠️ Modelo não carregado!")
+            return "nao_agendou"
+
         emb = self.emb_model.embed_sentence(text)
         pred = self.classifier.predict([emb])[0]
+
+        #print(f"🧐 DEBUG: Texto: {text}\n   → Predição: {pred}")
+
         return self.inv_labels_map.get(pred, "nao_agendou")
+
+
+# Teste rápido (comente se não estiver testando diretamente)
+if __name__ == "__main__":
+    extractor = EmbeddingExtractor()
+    X_train, y_train = extractor.build_dataset("train")
+
+    if len(X_train) > 0:
+        extractor.train_classifier(X_train, y_train)
+        extractor.save_classifier()

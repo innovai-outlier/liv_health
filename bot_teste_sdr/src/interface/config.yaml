@@ -1,0 +1,22 @@
+cookie:
+  expiry_days: 30
+  key: dmenescal
+  name: biscoito
+
+credentials:
+  usernames:
+    admin:
+      email: carreira.outlier@gmail.com
+      name: Diego Menescal
+      password: "C120915.d" 
+      logged_in: false
+    dra_cristal:
+      email: endocrino@dracristal.com
+      name: Dra. Cristal Cabral 
+      password: "Endo!2017"
+      logged_in: false
+
+preauthorized:
+  emails:
+    - carreira.outlier@gmail.com
+    - endocrino@dracristal.com

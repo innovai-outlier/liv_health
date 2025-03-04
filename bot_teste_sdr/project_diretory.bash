@@ -1,43 +1,81 @@
+📂 Estrutura do Framework de Relatórios e Auditoria
+
 bot_teste_sdr/
-├── assets/
+├── assets/                  # Base RAW de conversas brutas (antes do parser)
 │   ├── chatbase/
-│   ├── assistente_prompt.json
+│   │   ├── success_cases/
+│   │   ├── fail_cases/
+│   ├── assistant_prompt.json
 │   ├── sinonimos.json
-├── src/
-│   ├── agents/
-│   ├── analysis/
-│   ├── config/
-│   ├── interface/
-│   ├── main/
-│   ├── reports/
+│   └── keywords.json
+│
+├── database/                # Base formatada para Treino, Teste e Validação
+│   ├── train/
+│   │   ├── conversations.json
+│   ├── test/
+│   │   ├── conversations.json
+│   ├── validate/
+│   │   ├── conversations.json
+│
+├── benchmark/               # Comparação entre embeddings e IA Generativa
+│   ├── benchmark_report.py
+│   ├── results/
+│   │   ├── benchmark_results.json
+│   │   ├── embeddings_report.json
+│   │   ├── generative_report.json
+│
+├── output/                  # Armazena modelos treinados e relatórios
+│   ├── model_store.json
+│   ├── daily_report.json
+│   ├── validation_report.json
+│   ├── generative_daily_report.json
+│   ├── feedback.json
+│
+├── src/                     # Código-fonte do Framework
+│   ├── reports/             # Módulos para Processamento e Relatórios
 │   │   ├── chat_parser.py
+│   │   ├── split_chatbase.py
 │   │   ├── daily_report.py
 │   │   ├── embedding_extractor.py
-│   │   ├── embedding_utils.py
-│   │   ├── fetcher_api.py
+│   │   ├── generative_model.py
+│   │   ├── apply_feedback.py
 │   │   ├── fetcher_base.py
 │   │   ├── fetcher_selenium.py
-│   │   ├── keyword_extractor.py
-│   │   ├── keyword_utils.py
+│   │   ├── fetcher_api.py
 │   │   ├── synonyms_extractor.py
-│   │   ├── synonyms_utils.py
-│   │   ├── human_feedback.py  ⬅ **Novo arquivo para captura e aplicação de feedback**
-│   │   ├── apply_feedback.py  ⬅ **Novo arquivo para captura e aplicação de feedback**
-├── storage/
-│   ├── base_conversas.py
-├── tests/
+│   │   ├── workflow_reports.py
+│   ├── analysis/            # Módulos de auditoria e métricas
+│   │   ├── analise.py
+│   │   ├── sinonimos.py
+│   ├── storage/             # Gerenciamento e persistência de dados
+│   │   ├── base_conversas.py
+│   ├── interface/           # Interação com WhatsApp (Selenium, API)
+│   │   ├── selenium_bot.py
+│   ├── main/                # Executáveis principais
+│   │   ├── main.py
+│   │   ├── main_langchain.py
+│   │   ├── main_report_workflow.py
+│
+├── tests/                   # Testes Automatizados
+│   ├── unit_tests/
+│   │   ├── test_analise.py
+│   │   ├── test_agentes.py
 │   ├── integration_tests/
-│   ├── reports/
+│   │   ├── test_selenium_bot.py
+│   │   ├── test_integration_local.py
+│   ├── reports/             # Testes dos relatórios e embedding
 │   │   ├── real_tests/
-│   │   │   ├── teste_real_daily_report.py
-│   │   │   ├── teste_real_chatbase.py
-│   │   │   ├── teste_real_embedding.py
-│   │   │   ├── teste_real_feedback.py  ⬅ **Novo teste para validar integração do feedback humano**
-├── output/
-│   ├── relatorio_diario.json  ⬅ **Relatório diário gerado automaticamente**
-│   ├── feedback.json  ⬅ **Arquivo onde o feedback é preenchido manualmente**
-├── .github/
+│   │   │   ├── test_real_daily_report.py
+│   │   │   ├── test_real_embedding.py
+│   │   │   ├── test_real_feedback.py
+│   │   ├── test_chat_parser.py
+│   │   ├── test_keyword_extractor.py
+│
+├── .github/                  # Configurações do GitHub Actions (CI/CD)
 │   ├── workflows/
-│   │   ├── ci.yml  ⬅ **Arquivo atualizado do GitHub Actions para CI/CD**
-├── requirements.txt
+│   │   ├── ci_cd_pipeline.yml
+│
+├── .gitignore
+├── LICENSE
 ├── README.md
+├── requirements.txt

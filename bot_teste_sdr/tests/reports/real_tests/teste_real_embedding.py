@@ -44,22 +44,20 @@ class TestRealEmbedding(unittest.TestCase):
             os.remove(self.temp_model_store)
 
     def test_train_and_report(self):
-        # 1) Treinar o modelo
+        """ Testa a geração de embeddings e a criação do relatório usando `test/` """
         extractor = EmbeddingExtractor()
-        X, y = extractor.build_dataset(base_dir="assets/chatbase")
-        self.assertGreater(len(X), 0, "Esperava ter mensagens para treinar, mas o dataset está vazio.")
+        X, y = extractor.build_dataset(base_type="test")
         
+        assert len(X) > 0, "ERRO: Nenhuma amostra encontrada na base `test/`!"
+
         extractor.train_classifier(X, y)
-        extractor.save_classifier(self.temp_model_store)
+        extractor.save_classifier()
 
-        # 2) Rodar daily report usando o fetcher local
-        fetcher = LocalFileFetcher()
-        dr = DailyReport(fetcher=fetcher, model_store=self.temp_model_store)
-        result = dr.generate_report()
+        fetcher = LocalFileFetcher(base_type="test")
+        report_generator = DailyReport(fetcher=fetcher, model_store=extractor.model_store)
+        report = report_generator.generate_report()
 
-        print("Relatório real com embeddings:", result)
-        self.assertIn("data", result)
-        self.assertIn("detalhes", result)
+        assert "total_conversas" in report, "ERRO: O relatório não contém conversas!"
 
 if __name__ == "__main__":
     unittest.main()
