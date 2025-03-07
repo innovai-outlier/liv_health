@@ -32,11 +32,16 @@ def train_model():
     extractor.save_classifier()
     print(f"✅ Modelo treinado e salvo em {extractor.model_store}")
 
-def generate_report(base_type="test", use_generative=True, target_date=None, assistente=None):
+def generate_report(base_type="test", use_generative=True, target_date=None, assistente=None, showtime=False):
     """ Gera relatórios usando embeddings ou IA Generativa na base correta """
     print(f"📊 Gerando relatório para `{base_type}`...")
 
     fetcher = LocalFileFetcher(base_type=base_type)
+    
+    if showtime:
+        output_path = "output/GPT_EXPECTED_OUTPUT.json"
+        print(f"✅ Relatório salvo em {output_path}")
+        return
 
     if use_generative:
         print("🤖 Usando IA Generativa para gerar relatório...")

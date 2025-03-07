@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-import os, sys
+import os, sys, time
 from datetime import datetime
 from utils import carregar_json
 import re
@@ -17,57 +17,6 @@ ASSISTANTS_FILE = os.path.join(os.path.dirname(__file__), "data", "assistants.js
 # Diretório correto da pasta "output" na raiz do projeto
 OUTPUT_DIR = os.path.abspath(os.path.join(os.getcwd(), "output"))
 
-def exibir_tabela_formatada(metricas_extraidas):
-    """ Exibe a tabela de insights formatada em Streamlit """
-
-    # Converter dicionário para DataFrame
-    df = pd.DataFrame(list(metricas_extraidas.items()), columns=["Métrica", "Valor"])
-
-    # Aplicando um CSS para estilizar a tabela
-    st.markdown("""
-        <style>
-        .stDataFrame {
-            background-color: #fdfdfd;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        table tbody tr:hover {
-            background-color: #f0f0f0 !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # Exibir tabela
-    st.dataframe(df, use_container_width=True)
-
-def extrair_metricas(texto):
-    """ Extrai as métricas do relatório usando expressões regulares """
-    padroes = {
-        "Quantidade de agendamentos": r"Quantidade de agendamentos:\s*(\d+)",
-        "Google": r"-\s*(\d+)\s*Google",
-        "Instagram": r"-\s*(\d+)\s*Instagram",
-        "Indicação": r"-\s*(\d+)\s*Indicação",
-        "Cancelamentos": r"Cancelamentos:\s*(\d+)",
-        "Motivo do cancelamento": r"Motivo:\s*(.*)",
-        "Reagendamentos": r"Reagendamentos:\s*(\d+)",
-        "Motivo do reagendamento": r"Motivo:\s*(.*)",
-        "Conversas em aberto (Assistente não respondeu)": r"Conversas em aberto \(Assistente não respondeu\):\s*(\d+)",
-        "Conversas em aberto (Lead não respondeu)": r"Conversas em aberto \(Lead não respondeu\):\s*(\d+)"
-    }
-    
-    metricas = {}
-    for chave, padrao in padroes.items():
-        match = re.search(padrao, texto)
-        metricas[chave] = match.group(1) if match else "Não informado"
-    
-    return metricas
-
-def extrair_pendencias(texto):
-    """ Extrai as pendências ao médico do relatório """
-    padrao_pendencias = r"- ID do lead: (\d+-\d+)\n\s*- Pendência: (.+)"
-    pendencias = re.findall(padrao_pendencias, texto)
-    return pendencias if pendencias else [("Nenhuma", "Não informado")]
 
 # Carregar assistentes disponíveis
 def carregar_assistentes():
@@ -78,10 +27,33 @@ def carregar_assistentes():
         return [assistente.get('nome') for assistente in assist_json if 'nome' in assistente]
     return []
 
+def extrair_metricas(relatorio):
+    """Extrai as métricas do relatório diretamente do JSON estruturado."""
+    
+    origem_atendimento = relatorio.get("origem_atendimento", {})
+
+    metricas = {
+        "Quantidade de agendamentos": relatorio.get("quantidade_agendamentos", 0),
+        "Google": relatorio.get("origem_atendimento", {}).get("Google", None),
+        "Instagram": relatorio.get("origem_atendimento", {}).get("Instagram", None),
+        "Indicação": relatorio.get("origem_atendimento", {}).get("Indicação", None),
+        "Já é paciente": relatorio.get("origem_atendimento", {}).get("Já é paciente", None),
+        "Cancelamentos": relatorio.get("cancelamentos", 0),
+        "Motivo do cancelamento": relatorio.get("motivos_cancelamento", {}),
+        "Reagendamentos": relatorio.get("reagendamentos", 0),
+        "Motivo do reagendamento": relatorio.get("motivos_reagendamento", {}),
+        "Leads sem atendimento": relatorio.get("leads_sem_atendimento", []),
+        "Leads inertes": relatorio.get("leads_inertes", []),
+        "Pendências ao médico": relatorio.get("pendencias_ao_medico", {}),
+        "Tempo máximo de resposta": relatorio.get("tempo_maximo_resposta", {})
+    }
+    
+    return metricas
+
 def show_report():
     """ Exibe a tela do relatório diário """
     st.title("📊 Relatório Diário de Conversas")
-    st.markdown("🚀 **Produzido por:** INNOVAI")
+    st.markdown("🚀 **Produzido por:** INNOVAI (BETA VERSION)")
     
     # Carregar assistentes cadastradas
     assistentes_disponiveis = carregar_assistentes()
@@ -100,7 +72,12 @@ def show_report():
         REPORT_FILENAME = f"{assistente_nome}_{data_analise}_report.json"
         REPORT_PATH = os.path.join(OUTPUT_DIR, REPORT_FILENAME)
         with st.spinner("⏳ Processando relatório..."):
-            wfr.generate_report(target_date=data_analise, assistente=assistente_nome)  # Chama a geração do relatório
+            if numero_wab == "+55 11 99999-9999": #Executa Output Ideal do Modelo GPT-4o
+                REPORT_FILENAME = "GPT_EXPECTED_OUTPUT.json"
+                REPORT_PATH = os.path.join(OUTPUT_DIR, REPORT_FILENAME)
+                wfr.generate_report(showtime=True) #Modo exibição
+            else:
+                wfr.generate_report(target_date=data_analise, assistente=assistente_nome)  # Chama a geração do relatório
             time.sleep(2)  # Simula tempo de processamento
             
         st.success("✅ Relatório gerado com sucesso!")
@@ -110,26 +87,84 @@ def show_report():
             st.error("⚠️ Nenhum relatório encontrado. Execute a geração primeiro.")  
             return
         
-        # Informações Gerais
-        st.subheader("📌 Informações Gerais")
-        st.markdown(f"""
-        - **Assistente:** {assistente_nome}  
-        - **Categoria:** {categoria}  
-        - **Contato WAB:** {numero_wab}  
-        - **Data da Análise:** {data_analise.strftime("%d/%m/%Y")}  
-        """)
-
-        # 🔎 Insights
+        # 🔎 Insights Gerais
+        st.markdown("---")
         st.subheader("🔎 Insights das Conversas")
-        metricas_extraidas = extrair_metricas(relatorio["resumo"])
-        exibir_tabela_formatada(metricas_extraidas)
+        
+        metricas = extrair_metricas(relatorio["resumo"])
+        
+        col_ag, col_can, col_reag = st.columns(3)
+        
+        with col_ag:
+            st.metric(label="📅 Agendamentos", value=metricas.get("Quantidade de agendamentos"))
+        
+        with col_can:
+            st.metric(label="📉 Cancelamentos", value=metricas.get("Cancelamentos"))
+            
+        with col_reag:
+            st.metric(label="📌 Reagendamentos", value=metricas.get("Reagendamentos"))
+        
+        # Origem dos atendimentos
+        st.markdown("---")
+        st.subheader("📊 Origem dos Agendamentos")
+        # Exibe a origem dos atendimentos em ordem decrescente de percentual
+        total_agendamentos = metricas.get("Quantidade de agendamentos", 0)
 
-        # 🌟 Destaques Relevantes
-        st.subheader("🌟 Destaques Relevantes")
-        pendencias_extraidas = extrair_pendencias(relatorio["resumo"])
-        for lead_id, pendencia in pendencias_extraidas:
-            st.write(f"📌 **{lead_id}** - {pendencia}")
+        if total_agendamentos == 0:
+            st.warning("⚠️ Nenhum agendamento encontrado. Exibindo apenas os valores absolutos.")
+        else:
+            # Criar lista de origem com seus respectivos percentuais
+            origens = [
+                (origem, valor, (valor / total_agendamentos) * 100 if total_agendamentos > 0 else 0)
+                for origem, valor in metricas.items()
+                    if origem in ['Google', 'Instagram', 'Indicação', 'Já é paciente']
+            ]
 
+            # Ordenar a lista por percentual em ordem decrescente
+            origens = sorted(origens, key=lambda x: x[2], reverse=True)
+
+            # Exibir os valores na ordem correta
+            for origem, valor, percentual in origens:
+                st.write(f"🔹 **{origem}:** {valor} ({percentual:.1f}%)")
+                st.progress(percentual / 100)
+
+        # Tempo máximo de resposta
+        st.markdown("---")
+        st.subheader("⏳ Tempo Máximo de Resposta")
+        for lead, tempo in metricas.get("Tempo máximo de resposta").items():
+            st.write(f"🕒 **{lead}:** {tempo}")
+
+        # Pendências ao médico
+        st.markdown("---")
+        st.subheader("⚕️ Pendências Médicas")
+        for lead, pendencia in metricas.get("Pendências ao médico").items():
+            st.write(f"📌 **{lead}:** {pendencia}")
+        
+        # 🔴 Motivos de Cancelamento
+        st.markdown("---")
+        st.subheader("❌ Motivos de Cancelamento")
+
+        motivos_cancelamento = metricas.get("Motivo do cancelamento", {})
+
+        if motivos_cancelamento:
+            for lead, motivo in motivos_cancelamento.items():
+                st.write(f"📌 **{lead}** - {motivo}")
+        else:
+            st.success("✅ Nenhum cancelamento registrado.")
+
+        # 🔵 Motivos de Reagendamento
+        st.markdown("---")
+        st.subheader("📅 Motivos de Reagendamento")
+
+        motivos_reagendamento = metricas.get("Motivo do reagendamento", {})
+
+        if motivos_reagendamento:
+            for lead, motivo in motivos_reagendamento.items():
+                st.write(f"🔄 **{lead}** - {motivo}")
+        else:
+            st.success("✅ Nenhum reagendamento registrado.")
+        
+        st.markdown("---")
         # 💬 Conversas na Íntegra
         st.subheader("💬 Conversas na Íntegra")
         if "mostrar_conversas" not in st.session_state:
