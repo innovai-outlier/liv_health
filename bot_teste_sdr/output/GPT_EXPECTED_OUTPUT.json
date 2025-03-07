@@ -1,0 +1,32 @@
+{
+    "gerado_por": "GPT-4",
+    "resumo": {
+        "quantidade_agendamentos": 3,
+        "origem_atendimento": {
+            "Google": 0,
+            "Instagram": 2,
+            "Indicação": 1,
+            "Já é paciente": 0
+        },
+        "cancelamentos": 1,
+        "reagendamentos": 1,
+        "leads_sem_atendimento": [],
+        "leads_inertes": ["+55 11 98569-0900"],
+        "pendencias_ao_medico": {
+            "+55 11 98115-4756": "Envio de nota fiscal",
+            "+55 11 98207-9949": "Prescrição médica pendente"
+        },
+        "motivos_cancelamento": {
+            "+55 11 98799-1370": "Paciente não conseguiu comparecer na data agendada"
+        },
+        "motivos_reagendamento": {
+            "+55 11 98115-4756": "Paciente estava viajando e não poderia comparecer na data original"
+        },
+        "tempo_maximo_resposta": {
+            "+55 11 98115-4756": "3 horas, 18 minutos",
+            "+55 11 98207-9949": "1 hora, 10 minutos",
+            "+55 11 98799-1370": "2 horas, 35 minutos",
+            "+55 11 98569-0900": "6 horas, 46 minutos"
+        }
+    }
+}

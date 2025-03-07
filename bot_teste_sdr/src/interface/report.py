@@ -81,7 +81,7 @@ def carregar_assistentes():
 def show_report():
     """ Exibe a tela do relatório diário """
     st.title("📊 Relatório Diário de Conversas")
-    st.markdown("🚀 **Produzido por:** INNOVAI")
+    st.markdown("🚀 **Produzido por:** INNOVAI (BETA VERSION)")
     
     # Carregar assistentes cadastradas
     assistentes_disponiveis = carregar_assistentes()
@@ -100,7 +100,12 @@ def show_report():
         REPORT_FILENAME = f"{assistente_nome}_{data_analise}_report.json"
         REPORT_PATH = os.path.join(OUTPUT_DIR, REPORT_FILENAME)
         with st.spinner("⏳ Processando relatório..."):
-            wfr.generate_report(target_date=data_analise, assistente=assistente_nome)  # Chama a geração do relatório
+            if numero_wab == "+55 11 99999-9999": #Executa Output Ideal do Modelo GPT-4o
+                REPORT_FILENAME = "GPT_EXPECTED_OUTPUT.json"
+                REPORT_PATH = os.path.join(OUTPUT_DIR, REPORT_FILENAME)
+                wfr.generate_report(showtime=True) #Modo exibição
+            else:
+                wfr.generate_report(target_date=data_analise, assistente=assistente_nome)  # Chama a geração do relatório
             time.sleep(2)  # Simula tempo de processamento
             
         st.success("✅ Relatório gerado com sucesso!")

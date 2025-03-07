@@ -17,3 +17,5 @@ requests
 streamlit
 streamlit-authenticator
 streamlit-option-menu
+openai
+dotenv
