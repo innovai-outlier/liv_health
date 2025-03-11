@@ -1,0 +1,22 @@
+{
+    "gerado_por": "GPT-4",
+    "resumo": {
+        "quantidade_agendamentos": "1",
+        "origem_atendimento": {
+            "Google": "0",
+            "Instagram": "0",
+            "Indicação": "0",
+            "Já é paciente": "0"
+        },
+        "cancelamentos": "0",
+        "reagendamentos": "0",
+        "leads_sem_atendimento": [],
+        "leads_inertes": [],
+        "pendencias_ao_medico": {},
+        "motivos_cancelamento": {},
+        "motivos_reagendamento": {},
+        "tempo_maximo_resposta": {
+            "+55 11 98115-4756": "0 horas, 0 minutos"
+        }
+    }
+}

@@ -36,8 +36,10 @@ def generate_report(base_type="test", use_generative=True, target_date=None, ass
     """ Gera relatórios usando embeddings ou IA Generativa na base correta """
     print(f"📊 Gerando relatório para `{base_type}`...")
 
-    fetcher = LocalFileFetcher(base_type=base_type)
-    
+    #fetcher = LocalFileFetcher(base_type=base_type)
+    fetcher = LocalFileFetcher(base_type=base_type)  # Usuário escolhe um diretório com JSONs
+    conversas = fetcher.fetch_today_conversations(target_date=target_date)
+    print()
     if showtime:
         output_path = "output/GPT_EXPECTED_OUTPUT.json"
         print(f"✅ Relatório salvo em {output_path}")
@@ -45,9 +47,9 @@ def generate_report(base_type="test", use_generative=True, target_date=None, ass
 
     if use_generative:
         print("🤖 Usando IA Generativa para gerar relatório...")
-        model = GenerativeReportGenerator()
-        conversas = model.load_conversations()
-        report = model.generate_report(conversas)
+        grg = GenerativeReportGenerator()
+        #conversas = model.load_conversations(target_date=target_date)
+        report = grg.generate_report(conversas)
     else:
         print("🔎 Usando modelo de embeddings...")
         extractor = EmbeddingExtractor()
