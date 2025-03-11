@@ -77,7 +77,7 @@ def show_report():
                 REPORT_PATH = os.path.join(OUTPUT_DIR, REPORT_FILENAME)
                 wfr.generate_report(showtime=True) #Modo exibição
             else:
-                wfr.generate_report(target_date=data_analise, assistente=assistente_nome)  # Chama a geração do relatório
+                wfr.generate_report(target_date=data_analise, assistente=assistente_nome, base_type='prod')  # Chama a geração do relatório
             time.sleep(2)  # Simula tempo de processamento
             
         st.success("✅ Relatório gerado com sucesso!")
@@ -108,14 +108,14 @@ def show_report():
         st.markdown("---")
         st.subheader("📊 Origem dos Agendamentos")
         # Exibe a origem dos atendimentos em ordem decrescente de percentual
-        total_agendamentos = metricas.get("Quantidade de agendamentos", 0)
+        total_agendamentos = int(metricas.get("Quantidade de agendamentos", 0))
 
         if total_agendamentos == 0:
             st.warning("⚠️ Nenhum agendamento encontrado. Exibindo apenas os valores absolutos.")
         else:
             # Criar lista de origem com seus respectivos percentuais
             origens = [
-                (origem, valor, (valor / total_agendamentos) * 100 if total_agendamentos > 0 else 0)
+                (origem, int(valor), (int(valor) / total_agendamentos) * 100 if total_agendamentos > 0 else 0)
                 for origem, valor in metricas.items()
                     if origem in ['Google', 'Instagram', 'Indicação', 'Já é paciente']
             ]
@@ -137,8 +137,13 @@ def show_report():
         # Pendências ao médico
         st.markdown("---")
         st.subheader("⚕️ Pendências Médicas")
-        for lead, pendencia in metricas.get("Pendências ao médico").items():
-            st.write(f"📌 **{lead}:** {pendencia}")
+        pendencias_medico = metricas.get("Pendências ao médico")
+        
+        if pendencias_medico:
+            for lead, pendencia in metricas.get("Pendências ao médico").items():
+                st.write(f"📌 **{lead}:** {pendencia}")
+        else:
+            st.success("✅ Nenhuma pendência encontrada.")
         
         # 🔴 Motivos de Cancelamento
         st.markdown("---")
@@ -164,14 +169,14 @@ def show_report():
         else:
             st.success("✅ Nenhum reagendamento registrado.")
         
-        st.markdown("---")
+        ##st.markdown("---")
         # 💬 Conversas na Íntegra
-        st.subheader("💬 Conversas na Íntegra")
-        if "mostrar_conversas" not in st.session_state:
-            st.session_state.mostrar_conversas = False
+        ##st.subheader("💬 Conversas na Íntegra")
+        ##if "mostrar_conversas" not in st.session_state:
+        ##    st.session_state.mostrar_conversas = False
 
-        if st.button("👁️ Exibir Conversas" if not st.session_state.mostrar_conversas else "🙈 Ocultar Conversas"):
-            st.session_state.mostrar_conversas = not st.session_state.mostrar_conversas
+        ##if st.button("👁️ Exibir Conversas" if not st.session_state.mostrar_conversas else "🙈 Ocultar Conversas"):
+        ##    st.session_state.mostrar_conversas = not st.session_state.mostrar_conversas
 
-        if st.session_state.mostrar_conversas:
-            st.text_area("📜 Histórico Completo", relatorio["resumo"], height=400)
+        ##if st.session_state.mostrar_conversas:
+        ##    st.text_area("📜 Histórico Completo", relatorio["resumo"], height=400)
