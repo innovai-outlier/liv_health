@@ -1,4 +1,38 @@
 {
-    "gerado_por": "IA Generativa",
-    "resumo": "Nenhuma conversa encontrada para esta data."
+    "gerado_por": "GPT-4",
+    "resumo": {
+        "quantidade_agendamentos": "11",
+        "origem_atendimento": {
+            "Google": "3",
+            "Instagram": "1",
+            "Indicação": "2",
+            "Já é paciente": "1"
+        },
+        "cancelamentos": "3",
+        "reagendamentos": "4",
+        "leads_sem_atendimento": [
+            "+55 11 98115-4756",
+            "+55 11 98207-9949"
+        ],
+        "leads_inertes": [
+            "+55 11 99771-5208",
+            "+55 19 99226-0005"
+        ],
+        "pendencias_ao_medico": {
+            "+55 11 99771-5208": "Pendência de agendamento de retorno após cancelamento",
+            "+55 19 99226-0005": "Pendência de agendamento de retorno após cancelamento"
+        },
+        "motivos_cancelamento": {
+            "+55 11 99771-5208": "Pai do lead teve um AVC e está hospitalizado",
+            "+55 19 99226-0005": "Lead não pôde comparecer e solicitou reagendamento"
+        },
+        "motivos_reagendamento": {
+            "+55 11 99771-5208": "Lead solicitou reagendamento devido a compromissos pessoais",
+            "+55 19 99226-0005": "Lead solicitou reagendamento devido a compromissos pessoais"
+        },
+        "tempo_maximo_resposta": {
+            "+55 11 98115-4756": "3 horas, 50 minutos",
+            "+55 11 98207-9949": "4 horas, 25 minutos"
+        }
+    }
 }

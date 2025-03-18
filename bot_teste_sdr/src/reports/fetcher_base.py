@@ -1,28 +1,24 @@
 import os
 import json
+import glob
 import tkinter as tk
-from tkinter import filedialog
+import streamlit as st
+from tkinter import Tk, filedialog
 from abc import ABC, abstractmethod
-from src.reports.chat_parser import parse_chat_file  # Importa o parser de conversas
+from src.reports.chat_parser import parse_chat_file, extract_lead_id_from_folder  # Importação do parser
 
 class ConversationsFetcher(ABC):
-    """
-    Classe abstrata para padronizar a coleta de conversas.
-    Pode ser implementada para diferentes fontes: Selenium, API, Arquivo Local.
-    """
+    """ Classe abstrata para padronizar a coleta de conversas. """
 
     @abstractmethod
     def fetch_today_conversations(self):
-        """
-        Método abstrato para buscar as conversas do dia.
-        Cada implementação deve definir como as conversas são coletadas.
-        """
+        """ Método abstrato para buscar as conversas do dia. """
         pass
 
 class LocalFileFetcher(ConversationsFetcher):
     """
-    Implementação que busca conversas pré-processadas da base local (database/)
-    ou permite ao usuário selecionar um diretório contendo arquivos de conversas.
+    Implementação que busca conversas da base local (database/)
+    ou permite ao usuário selecionar um diretório contendo conversas individuais no modo produção.
     """
 
     def __init__(self, base_type="test"):
@@ -35,22 +31,42 @@ class LocalFileFetcher(ConversationsFetcher):
           - "prod" -> Abre uma caixa de diálogo para o usuário selecionar um diretório de conversas
         """
         self.base_type = base_type
-
-        if base_type in ["train", "test", "validate"]:
-            self.base_dir = f"database/{base_type}/"
-            os.makedirs(self.base_dir, exist_ok=True)  # Garante que a pasta exista
-        elif base_type == "prod":
-            self.base_dir = self.select_directory()  # Usuário escolhe a pasta
-        else:
-            raise ValueError("base_type inválido. Escolha entre 'train', 'test', 'validate' ou 'prod'.")
+        self.base_dir = None if base_type == "prod" else f"database/{base_type}/"
 
     def select_directory(self):
-        """ Abre um seletor para o usuário escolher um diretório contendo conversas. """
-        root = tk.Tk()
-        root.withdraw()  # Esconde a janela principal do Tkinter
+        """Abre um seletor de diretório no Streamlit via Tkinter"""
+        root = Tk()
+        root.withdraw()
         directory = filedialog.askdirectory(title="Selecione um diretório contendo conversas")
-        return directory if directory else None  # Retorna o caminho ou None caso o usuário cancele
+        root.destroy()
+        return directory if directory else None
 
+    def select_directory_streamlit(self):
+        """
+        Permite ao usuário selecionar um diretório via **entrada de texto** no Streamlit.
+        Alternativamente, ele pode arrastar um arquivo do diretório para inferirmos o caminho.
+        """
+
+        st.warning("📂 **Digite o caminho do diretório ou arraste um arquivo de dentro dele para identificarmos automaticamente.**")
+
+        # Opção 1: Entrada de texto para o caminho do diretório
+        directory = st.text_input("📁 Caminho do Diretório", placeholder="Digite ou cole o caminho do diretório...")
+
+        # Opção 2: Arrastar um arquivo do diretório desejado
+        uploaded_file = st.file_uploader("📄 Ou selecione um arquivo qualquer do diretório desejado", type=["txt", "json"])
+
+        # Se o usuário arrastou um arquivo, obtemos o diretório automaticamente
+        if uploaded_file is not None:
+            directory = os.path.dirname(uploaded_file.name)
+            st.success(f"📁 Diretório detectado automaticamente: `{directory}`")
+
+        # Bloqueia enquanto o diretório não for definido
+        if not directory:
+            st.warning("⚠️ Aguardando o usuário informar o diretório...")
+            st.stop()
+
+        return directory
+    
     def fetch_today_conversations(self, target_date="2025-01-02"):
         """
         Carrega as conversas usando `load_conversations()`, independentemente do tipo de base.
@@ -64,49 +80,68 @@ class LocalFileFetcher(ConversationsFetcher):
 
     def load_conversations(self, base_dir, target_date="2025-01-02"):
         """
-        Carrega conversas de um dia específico dentro do diretório da base (train, test ou validate).
-        Retorna apenas conversas onde há pelo menos uma mensagem registrada na data desejada.
+        Carrega conversas de um dia específico dentro do diretório da base (train, test, validate, ou prod).
+        Para bases `train/test/validate`: Lê JSONs diretos.
+        Para `prod`: Processa arquivos `_chat.txt` dentro das pastas de lead.
         """
         all_conversations = []
+
         if not base_dir:
             print("⚠️ Caminho base_dir não especificado.")
             return []
 
-        for file in os.listdir(base_dir):
-            if file.endswith(".json"):
-                file_path = os.path.join(base_dir, file)
-                with open(file_path, "r", encoding="utf-8") as f:
-                    try:
-                        data = json.load(f)  # Agora sabemos que data é uma lista!
+        if self.base_type == "prod":
+            # 📌 Busca todas as pastas no formato "WhatsApp Chat - *"
+            folders = glob.glob(os.path.join(base_dir, "WhatsApp Chat - *"))
+            
+            for folder in folders:
+                chat_file = os.path.join(folder, "_chat.txt")
 
-                        # Verifica se o JSON contém uma lista de conversas
-                        if not isinstance(data, list):
-                            print(f"⚠️ ERRO: Estrutura inesperada no arquivo {file}. Esperado uma lista de conversas, mas recebeu {type(data)}.")
-                            continue
+                if os.path.exists(chat_file):
+                    lead_id = extract_lead_id_from_folder(folder)
+                    conv = parse_chat_file(chat_file, "", lead_id)  # 🔄 Sem rotulagem, apenas mensagens
+                    all_conversations.append(conv)
 
-                        # Itera sobre cada conversa na lista
-                        for conv in data:
-                            if not isinstance(conv, dict):
-                                print(f"⚠️ ERRO: Conversa mal formatada no arquivo {file}: esperado dicionário, mas recebeu {type(conv)}.")
+        else:
+            # 📌 Modo tradicional: Carrega JSONs da base de dados
+            for file in os.listdir(base_dir):
+                if file.endswith(".json"):
+                    file_path = os.path.join(base_dir, file)
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        try:
+                            data = json.load(f)  # Agora sabemos que data é uma lista!
+
+                            # Verifica se o JSON contém uma lista de conversas
+                            if not isinstance(data, list):
+                                print(f"⚠️ ERRO: Estrutura inesperada no arquivo {file}. Esperado uma lista de conversas, mas recebeu {type(data)}.")
                                 continue
 
-                            if "mensagens" not in conv or not isinstance(conv["mensagens"], list):
-                                print(f"⚠️ ERRO: Estrutura incorreta em {file}. Conversa sem 'mensagens' ou formato inesperado.")
-                                continue
+                            # Itera sobre cada conversa na lista
+                            for conv in data:
+                                if not isinstance(conv, dict):
+                                    print(f"⚠️ ERRO: Conversa mal formatada no arquivo {file}: esperado dicionário, mas recebeu {type(conv)}.")
+                                    continue
 
-                            # 🔍 Filtra mensagens do dia desejado
-                            filtered_messages = [msg for msg in conv["mensagens"] if isinstance(msg, dict) and "timestamp" in msg and msg["timestamp"].startswith(str(target_date))]
-                            
-                            # Apenas adiciona conversas que tenham mensagens no dia filtrado
-                            if filtered_messages:
-                                all_conversations.append({
-                                    "lead_id": conv.get("lead_id", "desconhecido"),  # Mantém lead_id
-                                    "label": conv.get("label", "desconhecido"),  # Mantém rótulo
-                                    "mensagens": filtered_messages
-                                })
+                                if "mensagens" not in conv or not isinstance(conv["mensagens"], list):
+                                    print(f"⚠️ ERRO: Estrutura incorreta em {file}. Conversa sem 'mensagens' ou formato inesperado.")
+                                    continue
 
-                    except json.JSONDecodeError as e:
-                        print(f"⚠️ ERRO: Falha ao decodificar JSON em {file}: {e}")
+                                # 🔍 Filtra mensagens do dia desejado
+                                filtered_messages = [
+                                    msg for msg in conv["mensagens"] 
+                                    if isinstance(msg, dict) and "timestamp" in msg and msg["timestamp"].startswith(str(target_date))
+                                ]
+                                
+                                # Apenas adiciona conversas que tenham mensagens no dia filtrado
+                                if filtered_messages:
+                                    all_conversations.append({
+                                        "lead_id": conv.get("lead_id", "desconhecido"),  # Mantém lead_id
+                                        "label": conv.get("label", "desconhecido"),  # Mantém rótulo
+                                        "mensagens": filtered_messages
+                                    })
+
+                        except json.JSONDecodeError as e:
+                            print(f"⚠️ ERRO: Falha ao decodificar JSON em {file}: {e}")
 
         print(f"✅ {len(all_conversations)} conversas carregadas para {target_date}.")
         return all_conversations
