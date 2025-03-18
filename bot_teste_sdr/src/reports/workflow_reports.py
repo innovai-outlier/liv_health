@@ -32,14 +32,13 @@ def train_model():
     extractor.save_classifier()
     print(f"✅ Modelo treinado e salvo em {extractor.model_store}")
 
-def generate_report(base_type="test", use_generative=True, target_date=None, assistente=None, showtime=False):
+def generate_report(base_type="test", use_generative=True, target_date=None, assistente=None, showtime=False, conversations=None):
     """ Gera relatórios usando embeddings ou IA Generativa na base correta """
     print(f"📊 Gerando relatório para `{base_type}`...")
 
     #fetcher = LocalFileFetcher(base_type=base_type)
-    fetcher = LocalFileFetcher(base_type=base_type)  # Usuário escolhe um diretório com JSONs
-    conversas = fetcher.fetch_today_conversations(target_date=target_date)
-    print()
+    #fetcher = LocalFileFetcher(base_type=base_type)  # Usuário escolhe um diretório com JSONs
+    #conversas = fetcher.fetch_today_conversations(target_date=target_date)
     if showtime:
         output_path = "output/GPT_EXPECTED_OUTPUT.json"
         print(f"✅ Relatório salvo em {output_path}")
@@ -49,12 +48,12 @@ def generate_report(base_type="test", use_generative=True, target_date=None, ass
         print("🤖 Usando IA Generativa para gerar relatório...")
         grg = GenerativeReportGenerator()
         #conversas = model.load_conversations(target_date=target_date)
-        report = grg.generate_report(conversas)
-    else:
-        print("🔎 Usando modelo de embeddings...")
-        extractor = EmbeddingExtractor()
-        report_generator = DailyReport(fetcher=fetcher, model_store=extractor.model_store)
-        report = report_generator.generate_report()
+        report = grg.generate_report(conversations)
+    #else:
+        #print("🔎 Usando modelo de embeddings...")
+        #extractor = EmbeddingExtractor()
+        #report_generator = DailyReport(fetcher=fetcher, model_store=extractor.model_store)
+        #report = report_generator.generate_report()
     if (assistente == None):
         output_path = f"output/{base_type}_report.json"
     else:
